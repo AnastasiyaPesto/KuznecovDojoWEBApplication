@@ -14,20 +14,18 @@ select * from instructor, certificate;
 
 
 -- INNER JOIN
--- select certificate.number, certificate.date_pass, certificate.degree
--- from instructor
--- inner join certificate on instructor.instr_id = certificate.certif_id
-
 select *
 from certificate
 inner join instructor
 on instructor.instr_id = certificate.instr_id
 order by instructor.instr_id;
 
-select instructor.second_name, instructor.instr_id, certificate.date_pass, certificate.number, certificate.instr_id 
+-- OUTER LEFT JOIN
+select instructor.second_name, certificate.date_pass, certificate.number, certificate.degree 
 from certificate
 left join instructor
-on certificate.instr_id = 1;
+on certificate.instr_id = instructor.instr_id
+where instructor.second_name = "Павел";
 
 -- update table_name
 -- set column1 = value1, column2 = value2, ..., columnN = valueN
