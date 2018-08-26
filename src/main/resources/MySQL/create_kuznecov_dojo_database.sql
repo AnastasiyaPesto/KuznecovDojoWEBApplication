@@ -10,7 +10,7 @@ create table if not exists instructor (
     second_name varchar(50),
     age int,
     phone varchar(15)
-);
+);	
 
 -- C E R T I F I C A T E
 create table if not exists certificate (
