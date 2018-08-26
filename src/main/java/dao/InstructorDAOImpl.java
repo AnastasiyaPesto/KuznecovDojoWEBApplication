@@ -35,36 +35,37 @@ public class InstructorDAOImpl implements InstructorDAO {
     }
 
     @Override
-    public Instructor createWithCertificates(String firstName, String secondName, byte age, Set<Certificate> certificates) {
-        Instructor instructor = new Instructor();
-        instructor.setFirstName(firstName);
-        instructor.setSecondName(secondName);
-        instructor.setAge(age);
-        instructor.setCertificateSet(certificates);
-
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-
-        session.persist(instructor);
-
-        transaction.commit();
-        session.close();
-
-        return instructor;
-    }
-
-    @Override
     public List<Instructor> getAll() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        String query = "FROM instructor";
-
-        List<Instructor> resultListInstructors = session.createQuery(query, Instructor.class).getResultList();
+        List<Instructor> instructors = session
+                .createQuery("from domain.Instructor")
+                .list();
 
         transaction.commit();
         session.close();
 
-        return resultListInstructors;
+        return instructors;
+    }
+
+    @Override
+    public List<Instructor> findByFirstName(String firstName) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = null;
+        List<Instructor> instructors = null;
+        try {
+            transaction = session.beginTransaction();
+            instructors = session.createQuery("from domain.Instructor where first_name = :name", Instructor.class)
+                    .setParameter("name", firstName)
+                    .list();
+            transaction.commit();
+        } catch (Exception exc) {
+            transaction.rollback();
+            exc.printStackTrace();
+        } finally {
+            session.close();
+            return instructors;
+        }
     }
 }

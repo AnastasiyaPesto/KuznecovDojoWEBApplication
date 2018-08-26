@@ -89,11 +89,11 @@ public class Instructor {
     @Override
     public String toString() {
         return "Instructor{" +
-                "instructorId=" + instructorId +
-                ", firstName='" + firstName + '\'' +
-                ", secondName='" + secondName + '\'' +
-                ", age=" + age +
-                ", phone='" + phone + '\'' +
+                "instructorId = " + instructorId +
+                ", firstName = '" + firstName + '\'' +
+                ", secondName = '" + secondName + '\'' +
+                ", age = " + age +
+                ", phone = '" + phone + '\'' +
                 '}';
     }
 
