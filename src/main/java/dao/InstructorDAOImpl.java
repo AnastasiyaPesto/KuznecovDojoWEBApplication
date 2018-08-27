@@ -56,8 +56,8 @@ public class InstructorDAOImpl implements InstructorDAO {
         List<Instructor> instructors = null;
         try {
             transaction = session.beginTransaction();
-            instructors = session.createQuery("from domain.Instructor where first_name = :name", Instructor.class)
-                    .setParameter("name", firstName)
+            instructors = session.createQuery("from domain.Instructor where first_name = :first_name")
+                    .setParameter("first_name", firstName)
                     .list();
             transaction.commit();
         } catch (Exception exc) {

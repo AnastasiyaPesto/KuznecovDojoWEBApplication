@@ -19,9 +19,9 @@ public class Certificate {
     @Column(name = "date_complete")
     private GregorianCalendar dateCompletion;
 
-//    @OneToMany
-//    @JoinColumn(name = "certif_id")
-//    private Instructor instructor;
+    @OneToMany
+    @JoinColumn(name = "certif_id")
+    private Instructor instructor;
 
     public Certificate() {
     }
