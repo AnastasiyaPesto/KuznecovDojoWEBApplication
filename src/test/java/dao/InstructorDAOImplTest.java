@@ -44,7 +44,7 @@ public class InstructorDAOImplTest {
 
         String first_name = "Deev";
         String second_name = "Alexey";
-        byte age = 20;
+        int age = 20;
         Instructor instructor = new Instructor();
         instructor.setFirstName(first_name);
         instructor.setSecondName(second_name);
@@ -52,7 +52,7 @@ public class InstructorDAOImplTest {
 
         String first_name2 = "Ivanov";
         String second_name2 = "Ivan";
-        byte age2 = 35;
+        int age2 = 35;
         Instructor instructor2 = new Instructor();
         instructor2.setFirstName(first_name2);
         instructor2.setSecondName(second_name2);
@@ -80,7 +80,7 @@ public class InstructorDAOImplTest {
 
         String first_name = "Deev";
         String second_name = "Alexey";
-        byte age = 20;
+        int age = 20;
         Instructor instructor = new Instructor();
         instructor.setFirstName(first_name);
         instructor.setSecondName(second_name);
@@ -88,7 +88,7 @@ public class InstructorDAOImplTest {
 
         String first_name2 = "Ivanov";
         String second_name2 = "Ivan";
-        byte age2 = 35;
+        int age2 = 35;
         Instructor instructor2 = new Instructor();
         instructor2.setFirstName(first_name2);
         instructor2.setSecondName(second_name2);
@@ -119,7 +119,7 @@ public class InstructorDAOImplTest {
 
         String first_name = "Deev";
         String second_name = "Alexey";
-        byte age = 20;
+        int age = 20;
 
         Instructor instructor = instructorDAO.create(first_name, second_name, age);
 

@@ -7,7 +7,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.util.List;
-import java.util.Set;
 
 public class InstructorDAOImpl implements InstructorDAO {
     private final SessionFactory sessionFactory;
@@ -17,7 +16,7 @@ public class InstructorDAOImpl implements InstructorDAO {
     }
 
     @Override
-    public Instructor create(String firstName, String secondName, byte age) {
+    public Instructor create(String firstName, String secondName, int age) {
         Instructor instructor = new Instructor();
         instructor.setFirstName(firstName);
         instructor.setSecondName(secondName);

@@ -16,11 +16,11 @@ public class Certificate {
     @Column(length = 7)
     private String degree;
 
-    @Column(name = "date_complete")
+    @Column(name = "date_pass")
     private GregorianCalendar dateCompletion;
 
-    @OneToMany
-    @JoinColumn(name = "certif_id")
+    @OneToMany //(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "instr_id")
     private Instructor instructor;
 
     public Certificate() {
@@ -63,6 +63,14 @@ public class Certificate {
 
     public void setDateCompletion(GregorianCalendar dateCompletion) {
         this.dateCompletion = dateCompletion;
+    }
+
+    public Instructor getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(Instructor instructor) {
+        this.instructor = instructor;
     }
 
     @Override

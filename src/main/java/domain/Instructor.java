@@ -18,18 +18,18 @@ public class Instructor {
     private String secondName;
 
     @Column
-    private byte age;
+    private int age;
 
     @Column(length = 15)
     private String phone;
 
-    @OneToMany(mappedBy = "instructor")
+    @OneToMany(mappedBy = "instructor", fetch = FetchType.EAGER)
     private Set<Certificate> certificateSet;
 
     public Instructor() {
     }
 
-    public Instructor(int instructorId, String firstName, String secondName, byte age, String phone) {
+    public Instructor(int instructorId, String firstName, String secondName, int age, String phone) {
         this.instructorId = instructorId;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -70,11 +70,11 @@ public class Instructor {
         this.secondName = secondName;
     }
 
-    public byte getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(byte age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
