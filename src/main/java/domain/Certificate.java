@@ -19,7 +19,7 @@ public class Certificate {
     @Column(name = "date_pass")
     private GregorianCalendar dateCompletion;
 
-    @OneToMany //(cascade = CascadeType.REMOVE)
+    @ManyToOne //(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "instr_id")
     private Instructor instructor;
 

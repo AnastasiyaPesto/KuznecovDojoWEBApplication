@@ -17,9 +17,9 @@
         <!-- create, create-drop, update, validate -->
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <mapping class="domain.Instructor"/>
-        <mapping class="domain.Certificate"/>
-        <mapping class="domain.SportClub" />
+        <!--<mapping class="domain.Instructor"/>-->
+        <!--<mapping class="domain.Certificate"/>-->
+        <!--<mapping class="domain.SportClub" />-->
 
     </session-factory>
 </hibernate-configuration>

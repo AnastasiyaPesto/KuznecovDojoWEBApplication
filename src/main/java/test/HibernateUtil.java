@@ -16,9 +16,9 @@ public class HibernateUtil {
         configuration
                 .configure("hibernate.cfg.xml");
 
-//        configuration
-//                .addAnnotatedClass(Instructor.class)
-//                .addAnnotatedClass(Certificate.class);
+        configuration
+                .addAnnotatedClass(Instructor.class)
+                .addAnnotatedClass(Certificate.class);
 
         System.out.println("Hibernate Configuration loaded");
 
