@@ -1,6 +1,8 @@
 package domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "sport_club")
@@ -18,6 +20,14 @@ public class SportClub {
 
     @Column
     private String phone;
+
+    @ManyToMany
+    @JoinTable(
+            name = "instructor_sport_club",
+            joinColumns = { @JoinColumn(name = "sc_id") },
+            inverseJoinColumns = { @JoinColumn(name = "instr_id") }
+    )
+    private List<Instructor> instructors = new ArrayList<>();
 
     public SportClub() {
     }
@@ -58,6 +68,14 @@ public class SportClub {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public List<Instructor> getInstructors() {
+        return instructors;
+    }
+
+    public void setInstructors(List<Instructor> instructors) {
+        this.instructors = instructors;
     }
 
     @Override

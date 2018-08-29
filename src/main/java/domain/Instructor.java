@@ -28,6 +28,9 @@ public class Instructor {
     @OneToMany(mappedBy = "instructor", fetch = FetchType.LAZY)
     private List<Certificate> certificates;
 
+    @ManyToMany(mappedBy = "instructors")
+    private List<SportClub> sportClubs;
+
     public Instructor() {
     }
 
@@ -86,6 +89,22 @@ public class Instructor {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public List<Certificate> getCertificates() {
+        return certificates;
+    }
+
+    public void setCertificates(List<Certificate> certificates) {
+        this.certificates = certificates;
+    }
+
+    public List<SportClub> getSportClubs() {
+        return sportClubs;
+    }
+
+    public void setSportClubs(List<SportClub> sportClubs) {
+        this.sportClubs = sportClubs;
     }
 
     @Override
