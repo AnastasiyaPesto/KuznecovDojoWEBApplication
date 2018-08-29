@@ -18,11 +18,12 @@ public class CertificateDAOImpl implements CertificateDAO {
         entityManager.getTransaction().begin();
         // создать сертификат
         Certificate certificate = new Certificate(numberCert, degree, dateComplete);
+//        entityManager.persist(certificate);
         // найти инструктора
         Instructor foundInstructor = entityManager.find(Instructor.class, instructor.getInstructorId());
         // добавить к нему сертификат
         if (foundInstructor != null) {
-            foundInstructor.setCertificate(certificate);
+            foundInstructor.addCertificate(certificate);
         } else {
             throw new IllegalArgumentException("Instructor is not found");
         }

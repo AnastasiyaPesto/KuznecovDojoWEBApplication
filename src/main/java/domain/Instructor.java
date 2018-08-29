@@ -24,7 +24,7 @@ public class Instructor {
     @Column(length = 15)
     private String phone;
 
-    @OneToMany(mappedBy = "instructor", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "instructor", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private Map<String, Certificate> certificateMap = new HashMap<>();
 
     @ManyToMany(mappedBy = "instructors")
@@ -52,7 +52,7 @@ public class Instructor {
         }
     }
 
-    public void setCertificate(Certificate certificate) {
+    public void addCertificate(Certificate certificate) {
         if (certificate == null) throw new IllegalArgumentException("Certificates shouldn't be null");
         this.certificateMap.put(certificate.getNumber(), certificate);
     }
