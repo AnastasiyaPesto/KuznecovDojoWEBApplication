@@ -10,6 +10,7 @@ import domain.Instructor;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.Date;
 import java.util.List;
 
 public class Application {
@@ -22,11 +23,7 @@ public class Application {
             CertificateDAO certificateDAO = new CertificateDAOImpl(em);
             List<Instructor> instructors = instructorDAO.findByFirstName("Кузнецов");
 
-            Certificate certificate = new Certificate();
-            certificate.setNumber("5555");
-            certificate.setDegree("6 dan");
-
-            certificateDAO.addTo(instructors.get(0), certificate);
+            certificateDAO.addTo(instructors.get(0), "5555", "6 dan", new Date());
 
             int i = 0;
 

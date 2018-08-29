@@ -1,13 +1,18 @@
 package test;
 
+import dao.CertificateDAO;
+import dao.CertificateDAOImpl;
 import dao.InstructorDAO;
 import dao.InstructorDAOImpl;
+import domain.Certificate;
 import domain.Instructor;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class ApplicationH2 {
     public static void main(String[] args) {
@@ -37,6 +42,17 @@ public class ApplicationH2 {
 
             for (Instructor instructor : instrsFirstName) {
                 System.out.println(instructor.toString());
+            }
+
+            CertificateDAO certificateDAO  = new CertificateDAOImpl(em);
+
+            // добавить сертификат к инструктору
+            // todo передавать всего инструктора или его id ???
+            // todo думаю что id
+            certificateDAO.addTo(instructor1, "0157_qw", "5 кю", new Date());
+            Map<String, Certificate> map = instructor1.getCertificateMap();
+            for (String key : map.keySet()) {
+                System.out.println(map.get(key).toString());
             }
         } finally {
             em.close();

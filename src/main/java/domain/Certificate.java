@@ -1,6 +1,7 @@
 package domain;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 @Entity
@@ -18,7 +19,7 @@ public class Certificate {
     private String degree;
 
     @Column(name = "date_pass")
-    private GregorianCalendar dateCompletion;
+    private Date dateCompletion;
 
     @OneToOne //(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "instr_id")
@@ -27,7 +28,7 @@ public class Certificate {
     public Certificate() {
     }
 
-    public Certificate(String number, String degree, GregorianCalendar dateCompletion) {
+    public Certificate(String number, String degree, Date dateCompletion) {
         this.certificateId = certificateId;
         this.number = number;
         this.degree = degree;
@@ -58,11 +59,11 @@ public class Certificate {
         this.degree = degree;
     }
 
-    public GregorianCalendar getDateCompletion() {
+    public Date getDateCompletion() {
         return dateCompletion;
     }
 
-    public void setDateCompletion(GregorianCalendar dateCompletion) {
+    public void setDateCompletion(Date dateCompletion) {
         this.dateCompletion = dateCompletion;
     }
 

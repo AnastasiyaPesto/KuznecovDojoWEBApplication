@@ -1,8 +1,7 @@
 package domain;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "instructor")
@@ -26,7 +25,7 @@ public class Instructor {
     private String phone;
 
     @OneToMany(mappedBy = "instructor", fetch = FetchType.LAZY)
-    private List<Certificate> certificates;
+    private Map<String, Certificate> certificateMap = new HashMap<>();
 
     @ManyToMany(mappedBy = "instructors")
     private List<SportClub> sportClubs;
@@ -42,13 +41,20 @@ public class Instructor {
         this.phone = phone;
     }
 
-    public List<Certificate> getCertificateSet() {
-        return certificates;
+    public Map<String, Certificate> getCertificateMap() {
+        return certificateMap;
     }
 
-    public void setCertificateSet(List<Certificate> certificates) {
+    public void setCertificates(Map<String, Certificate> certificates) {
         if (certificates == null) throw new IllegalArgumentException("Certificates shouldn't be null");
-        this.certificates = certificates;
+        for (String keyNumber : certificates.keySet()) {
+            this.certificateMap.put(keyNumber, certificates.get(keyNumber));
+        }
+    }
+
+    public void setCertificate(Certificate certificate) {
+        if (certificate == null) throw new IllegalArgumentException("Certificates shouldn't be null");
+        this.certificateMap.put(certificate.getNumber(), certificate);
     }
 
     public int getInstructorId() {
@@ -91,14 +97,6 @@ public class Instructor {
         this.phone = phone;
     }
 
-    public List<Certificate> getCertificates() {
-        return certificates;
-    }
-
-    public void setCertificates(List<Certificate> certificates) {
-        this.certificates = certificates;
-    }
-
     public List<SportClub> getSportClubs() {
         return sportClubs;
     }
@@ -115,7 +113,7 @@ public class Instructor {
                 ", secondName = '" + secondName + '\'' +
                 ", age = " + age +
                 ", phone = '" + phone + '\''
-                + '}';
+                 + '}';
     }
 
 }
