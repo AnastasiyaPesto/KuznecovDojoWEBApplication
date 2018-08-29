@@ -15,8 +15,8 @@ public class Certificate {
     @Column(nullable = false, unique = true)
     private String number;
 
-    @Column(length = 7)
-    private String degree;
+    @Column
+    private int degree;
 
     @Column(name = "date_pass")
     private Date dateCompletion;
@@ -28,7 +28,7 @@ public class Certificate {
     public Certificate() {
     }
 
-    public Certificate(String number, String degree, Date dateCompletion) {
+    public Certificate(String number, int degree, Date dateCompletion) {
         this.certificateId = certificateId;
         this.number = number;
         this.degree = degree;
@@ -51,11 +51,11 @@ public class Certificate {
         this.number = number;
     }
 
-    public String getDegree() {
+    public int getDegree() {
         return degree;
     }
 
-    public void setDegree(String degree) {
+    public void setDegree(int degree) {
         this.degree = degree;
     }
 
@@ -78,9 +78,9 @@ public class Certificate {
     @Override
     public String toString() {
         return "Certificate{" +
-                "certificateId=" + certificateId +
-                ", number='" + number + '\'' +
-                ", degree='" + degree + '\'' +
+                "certificateId = " + certificateId +
+                ", number = '" + number + '\'' +
+                ", degree = '" + degree + '\'' +
 //                ", dateCompletion=" + dateCompletion +
                 '}';
     }

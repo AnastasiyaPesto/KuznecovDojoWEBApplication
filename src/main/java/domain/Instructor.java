@@ -24,7 +24,7 @@ public class Instructor {
     @Column(length = 15)
     private String phone;
 
-    @OneToMany(mappedBy = "instructor", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "instructor", fetch = FetchType.LAZY)
     private Map<String, Certificate> certificateMap = new HashMap<>();
 
     @ManyToMany(mappedBy = "instructors")

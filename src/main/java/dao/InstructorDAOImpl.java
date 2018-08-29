@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import java.util.List;
 
@@ -74,8 +75,20 @@ public class InstructorDAOImpl implements InstructorDAO {
 
     // TODO подумать как сделать поиск по кю и дан
     @Override
-    public List<Instructor> findWhereDegreeIsMore(String degree) {
-        return null;
+    public List<Instructor> findWhereDegreeIsMore(int degree) {
+        entityManager.getTransaction().begin();
+        List<Instructor> instructors = null;
+        try{
+            instructors = entityManager
+                    .createQuery("SELECT i FROM Instructor i LEFT JOIN i.certificateMap cert WHERE cert.degree >= :degree", Instructor.class)
+                    .setParameter("degree", degree)
+                    .getResultList();
+            entityManager.getTransaction().commit();
+        } catch (PersistenceException pe) {
+            entityManager.getTransaction().rollback();
+            throw pe;
+        }
+        return instructors;
     }
 
     @Override
@@ -89,5 +102,25 @@ public class InstructorDAOImpl implements InstructorDAO {
             throw pe;
         }
         return null;
+    }
+
+    // todo не работает
+    @Override
+    public int update(Instructor instructor, String phone) {
+        if (instructor == null) throw new IllegalArgumentException("Instructor shouldn't be not null");
+        entityManager.getTransaction().begin();
+        int rowCountUpdate = 0;
+        try {
+            rowCountUpdate = entityManager
+                    .createQuery("UPDATE Instructor i SET i.phone = :phone  WHERE i.instructorId = :id")
+                    .setParameter("id", instructor.getInstructorId())
+                    .setParameter("phone", phone)
+                    .executeUpdate();
+            entityManager.getTransaction().commit();
+        } catch (PersistenceException pe) {
+            entityManager.getTransaction().rollback();
+            throw pe;
+        }
+        return rowCountUpdate;
     }
 }

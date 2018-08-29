@@ -23,7 +23,7 @@ public class Application {
             CertificateDAO certificateDAO = new CertificateDAOImpl(em);
             List<Instructor> instructors = instructorDAO.findByFirstName("Кузнецов");
 
-            certificateDAO.addTo(instructors.get(0), "5555", "6 dan", new Date());
+            certificateDAO.addTo(instructors.get(0), "5555", 6, new Date());
 
             int i = 0;
 

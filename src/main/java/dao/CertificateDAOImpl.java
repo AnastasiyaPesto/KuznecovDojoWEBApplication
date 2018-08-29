@@ -14,25 +14,42 @@ public class CertificateDAOImpl implements CertificateDAO {
     }
 
     @Override
-    public void addTo(Instructor instructor, String numberCert, String degree, Date dateComplete) {
+    public void addTo(Instructor instructor, String numberCert, int degree, Date dateComplete) {
         entityManager.getTransaction().begin();
         // создать сертификат
         Certificate certificate = new Certificate(numberCert, degree, dateComplete);
-//        entityManager.persist(certificate);
+        entityManager.persist(certificate);
         // найти инструктора
         Instructor foundInstructor = entityManager.find(Instructor.class, instructor.getInstructorId());
         // добавить к нему сертификат
         if (foundInstructor != null) {
+            if (foundInstructor.getCertificateMap().containsKey(certificate.getNumber())) {
+                throw new IllegalArgumentException("Certificate already exists");
+            }
             foundInstructor.addCertificate(certificate);
         } else {
             throw new IllegalArgumentException("Instructor is not found");
         }
         entityManager.getTransaction().commit();
-        // если такой сертификат уже есть, то выбросить исключение ?
     }
 
     @Override
     public Certificate delete(Instructor instructor, String numberCert) {
-        return null;
+        entityManager.getTransaction().begin();
+        // найти инструктора
+        Instructor foundInstructor = entityManager.find(Instructor.class, instructor.getInstructorId());
+        Certificate certificate = foundInstructor.getCertificateMap().get(numberCert);
+
+        if (certificate == null) {
+            throw new IllegalArgumentException("Certificate not found in instructor which id = "
+                    + instructor.getInstructorId());
+        }
+
+        int rowCountDeleted = entityManager
+                .createQuery("DELETE FROM Certificate c WHERE c.number = :number")
+                .setParameter("number", numberCert)
+                .executeUpdate();
+
+        return certificate;
     }
 }

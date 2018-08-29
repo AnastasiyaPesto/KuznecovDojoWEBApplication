@@ -12,6 +12,7 @@ public interface InstructorDAO {
     Instructor create(String firstName, String secondName, int age);
     List<Instructor> getAll();
     List<Instructor> findByFirstName(String firstName);
-    List<Instructor> findWhereDegreeIsMore(String degree);
+    List<Instructor> findWhereDegreeIsMore(int degree);
     List<Instructor> findBySportClub(SportClub sportClub);
+    int update(Instructor instructor, String phone);
 }
