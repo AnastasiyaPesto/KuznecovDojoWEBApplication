@@ -19,14 +19,14 @@ public class Certificate {
     @Column(name = "date_pass")
     private GregorianCalendar dateCompletion;
 
-    @ManyToOne //(cascade = CascadeType.REMOVE)
+    @OneToOne //(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "instr_id")
     private Instructor instructor;
 
     public Certificate() {
     }
 
-    public Certificate(int certificateId, String number, String degree, GregorianCalendar dateCompletion) {
+    public Certificate(String number, String degree, GregorianCalendar dateCompletion) {
         this.certificateId = certificateId;
         this.number = number;
         this.degree = degree;

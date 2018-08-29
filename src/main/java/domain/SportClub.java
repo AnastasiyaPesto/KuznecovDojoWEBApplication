@@ -24,8 +24,7 @@ public class SportClub {
     public SportClub() {
     }
 
-    public SportClub(int sportClubId, String metro, String address, String phone) {
-        this.sportClubId = sportClubId;
+    public SportClub(String metro, String address, String phone) {
         this.metro = metro;
         this.address = address;
         this.phone = phone;
