@@ -1,18 +1,23 @@
 package dao;
 
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import domain.Certificate;
 import domain.Instructor;
+import domain.SportClub;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 import java.util.List;
 
 public class InstructorDAOImpl implements InstructorDAO {
-    private final SessionFactory sessionFactory;
+    private final EntityManager entityManager;
 
-    public InstructorDAOImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public InstructorDAOImpl(EntityManager em) {
+        this.entityManager = em;
     }
 
     @Override
@@ -22,53 +27,66 @@ public class InstructorDAOImpl implements InstructorDAO {
         instructor.setSecondName(secondName);
         instructor.setAge(age);
 
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-
-        session.persist(instructor);
-
-        transaction.commit();
-        session.close();
-
+        entityManager.getTransaction().begin();
+        try {
+            entityManager.persist(instructor);
+            entityManager.getTransaction().commit();
+        } catch (PersistenceException pe) {
+            entityManager.getTransaction().rollback();
+            throw pe;
+        }
         return instructor;
     }
 
     @Override
     public List<Instructor> getAll() {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-
-//        List<Instructor> instructors = session
-//                .createQuery("from domain.Instructor", Instructor.class)
-//                .list();
-
-        List<Instructor> instructors = session
-                .createQuery("from Instructor")
-                .list();
-
-        transaction.commit();
-        session.close();
+        entityManager.getTransaction().begin();
+        List<Instructor> instructors = null;
+        try {
+            instructors = entityManager
+                    .createQuery("SELECT i FROM Instructor i", Instructor.class)
+                    .getResultList();
+            entityManager.getTransaction().commit();
+        } catch (PersistenceException pe) {
+            entityManager.getTransaction().rollback();
+            throw pe;
+        }
 
         return instructors;
     }
 
     @Override
     public List<Instructor> findByFirstName(String firstName) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
+        entityManager.getTransaction().begin();
         List<Instructor> instructors = null;
         try {
-            transaction = session.beginTransaction();
-            instructors = session.createQuery("from domain.Instructor where first_name = :name")
-                    .setParameter("name", firstName)
-                    .list();
-            transaction.commit();
-        } catch (Exception exc) {
-            transaction.rollback();
-            exc.printStackTrace();
-        } finally {
-            session.close();
-            return instructors;
+            instructors = entityManager
+                    .createQuery("SELECT i FROM Instructor i WHERE i.firstName = :firstName", Instructor.class)
+                    .setParameter("firstName", firstName)
+                    .getResultList();
+            entityManager.getTransaction().commit();
+        } catch (PersistenceException pe) {
+            entityManager.getTransaction().rollback();
+            throw pe;
         }
+        return instructors;
+    }
+
+    @Override
+    public List<Instructor> findWhereDegreeIsMore(String degree) {
+        return null;
+    }
+
+    @Override
+    public List<Instructor> findBySportClub(SportClub sportClub) {
+        entityManager.getTransaction().begin();
+        List<Instructor> instructors = null;
+        try {
+//            entityManager.createQuery("SELECT ");
+        } catch (PersistenceException pe){
+            entityManager.getTransaction().rollback();
+            throw pe;
+        }
+        return null;
     }
 }

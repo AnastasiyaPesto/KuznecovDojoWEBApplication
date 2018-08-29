@@ -9,21 +9,28 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("MySQLKuznecovDojoPersistenceUnit");
+        EntityManager em = emf.createEntityManager();
 
-        InstructorDAO instructorDAO = new InstructorDAOImpl(sessionFactory);
+        try {
+            InstructorDAO instructorDAO = new InstructorDAOImpl(em);
 
-        List<Instructor> instructors = instructorDAO.getAll();
-//        List<Instructor> instructors = instructorDAO.findByFirstName("Кузнецов");
+//            List<Instructor> instructors = instructorDAO.getAll();
+        List<Instructor> instructors = instructorDAO.findByFirstName("Кузнецов");
 
-        for (Instructor instructor : instructors) {
-            System.out.println(instructor.toString());
+            for (Instructor instructor : instructors) {
+                System.out.println(instructor.toString());
+            }
+        } finally {
+            em.close();
+            emf.close();
         }
-
-        sessionFactory.close();
     }
 }

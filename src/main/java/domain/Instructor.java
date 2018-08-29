@@ -1,6 +1,7 @@
 package domain;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,7 +25,7 @@ public class Instructor {
     private String phone;
 
     @OneToMany(mappedBy = "instructor", fetch = FetchType.EAGER)
-    private Set<Certificate> certificateSet;
+    private List<Certificate> certificates;
 
     public Instructor() {
     }
@@ -37,13 +38,13 @@ public class Instructor {
         this.phone = phone;
     }
 
-    public Set<Certificate> getCertificateSet() {
-        return certificateSet;
+    public List<Certificate> getCertificateSet() {
+        return certificates;
     }
 
-    public void setCertificateSet(Set<Certificate> certificateSet) {
-        if (certificateSet == null) throw new IllegalArgumentException("Certificates shouldn't be null");
-        this.certificateSet = certificateSet;
+    public void setCertificateSet(List<Certificate> certificates) {
+        if (certificates == null) throw new IllegalArgumentException("Certificates shouldn't be null");
+        this.certificates = certificates;
     }
 
     public int getInstructorId() {
@@ -93,8 +94,8 @@ public class Instructor {
                 ", firstName = '" + firstName + '\'' +
                 ", secondName = '" + secondName + '\'' +
                 ", age = " + age +
-                ", phone = '" + phone + '\'' +
-                '}';
+                ", phone = '" + phone + '\''
+                + '}';
     }
 
 }

@@ -79,7 +79,7 @@ public class Certificate {
                 "certificateId=" + certificateId +
                 ", number='" + number + '\'' +
                 ", degree='" + degree + '\'' +
-                ", dateCompletion=" + dateCompletion +
+//                ", dateCompletion=" + dateCompletion +
                 '}';
     }
 }
