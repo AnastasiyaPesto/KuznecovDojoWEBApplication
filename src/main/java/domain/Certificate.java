@@ -8,6 +8,7 @@ import java.util.GregorianCalendar;
 public class Certificate {
     @Id
     @Column(name = "certif_id")
+    @GeneratedValue
     private int certificateId;
 
     @Column(nullable = false, unique = true)

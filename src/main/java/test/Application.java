@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("MySQLKuznecovDojoPersistenceUnit");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("H2KuznecovDojoPersistenceUnit");
         EntityManager em = emf.createEntityManager();
 
         try {

@@ -1,15 +1,13 @@
 package domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "sport_club")
 public class SportClub {
     @Id
     @Column(name = "sc_id")
+    @GeneratedValue
     private int sportClubId;
 
     @Column

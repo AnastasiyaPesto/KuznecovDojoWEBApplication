@@ -10,6 +10,7 @@ public class Instructor {
 
     @Id
     @Column(name = "instr_id")
+    @GeneratedValue
     private int instructorId;
 
     @Column(name = "first_name", nullable = false, length = 30)
@@ -24,13 +25,13 @@ public class Instructor {
     @Column(length = 15)
     private String phone;
 
-    @OneToMany(mappedBy = "instructor", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "instructor", fetch = FetchType.LAZY)
     private List<Certificate> certificates;
 
     public Instructor() {
     }
 
-    public Instructor(int instructorId, String firstName, String secondName, int age, String phone) {
+    public Instructor(String firstName, String secondName, int age, String phone) {
         this.instructorId = instructorId;
         this.firstName = firstName;
         this.secondName = secondName;

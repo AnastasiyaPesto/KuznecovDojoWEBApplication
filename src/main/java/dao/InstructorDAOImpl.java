@@ -72,6 +72,7 @@ public class InstructorDAOImpl implements InstructorDAO {
         return instructors;
     }
 
+    // TODO подумать как сделать поиск по кю и дан
     @Override
     public List<Instructor> findWhereDegreeIsMore(String degree) {
         return null;
