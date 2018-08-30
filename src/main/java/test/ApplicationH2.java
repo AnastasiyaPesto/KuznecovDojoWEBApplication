@@ -70,11 +70,9 @@ public class ApplicationH2 {
                 System.out.println(instructor.toString());
             }
 
-
             SportClubDAO sportClubDAO = new SportClubDAOImpl(em);
             SportClub sportClub = sportClubDAO.create("Академическая", "пр. Науки, 41", "123456");
 
-            // todo У инструктора в List не добавляется спортивный клуб
             sportClubDAO.addInstructor(sportClub, instructor1);
             sportClubDAO.addInstructor(sportClub, instructor2);
             sportClubDAO.addInstructor(sportClub, instructor3);
