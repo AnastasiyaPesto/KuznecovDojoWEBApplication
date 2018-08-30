@@ -33,6 +33,7 @@ public class SportClubDAOImpl implements SportClubDAO {
         entityManager.getTransaction().begin();
         try {
             SportClub foundedSportClub = entityManager.find(SportClub.class, sportClub.getSportClubId());
+            instructor.addSportClub(sportClub);
             foundedSportClub.addInstructor(instructor);
             entityManager.getTransaction().commit();
         } catch (PersistenceException pe) {
@@ -47,6 +48,7 @@ public class SportClubDAOImpl implements SportClubDAO {
         entityManager.getTransaction().begin();
         try {
             SportClub foundedSportClub = entityManager.find(SportClub.class, sportClub.getSportClubId());
+            instructor.deleteSportClub(sportClub);
             foundedSportClub.getInstructors().remove(instructor.getInstructorId());
             entityManager.getTransaction().commit();
         } catch (PersistenceException pe) {

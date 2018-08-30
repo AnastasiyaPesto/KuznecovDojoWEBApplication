@@ -28,7 +28,7 @@ public class Instructor {
     private Map<String, Certificate> certificateMap = new HashMap<>();
 
     @ManyToMany(mappedBy = "instructors")
-    private List<SportClub> sportClubs;
+    private Map<Integer, SportClub> sportClubs;
 
     public Instructor() {
     }
@@ -97,12 +97,29 @@ public class Instructor {
         this.phone = phone;
     }
 
-    public List<SportClub> getSportClubs() {
+    public Map<Integer, SportClub> getSportClubs() {
         return sportClubs;
     }
 
-    public void setSportClubs(List<SportClub> sportClubs) {
-        this.sportClubs = sportClubs;
+    public void setSportClubs(Map<Integer, SportClub> sportClubs) {
+        if (sportClubs == null) throw new IllegalArgumentException("Sport clubs shouldn't be null");
+        for (Integer keySportClubId : sportClubs.keySet()) {
+            this.sportClubs.put(keySportClubId, sportClubs.get(keySportClubId));
+        }
+    }
+
+    public void addSportClub(SportClub sportClub) {
+        if (sportClub == null) throw new IllegalArgumentException("Sport club shouldn't be null");
+        if (this.sportClubs == null) {
+            this.sportClubs = new HashMap<>();
+        }
+        this.sportClubs.put(sportClub.getSportClubId(), sportClub);
+    }
+
+    public void deleteSportClub(SportClub sportClub) {
+        if (sportClubs.containsKey(sportClub.getSportClubId())) {
+            sportClubs.remove(sportClub.getSportClubId());
+        }
     }
 
     @Override

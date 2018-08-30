@@ -89,19 +89,19 @@ public class InstructorDAOImpl implements InstructorDAO {
         return instructors;
     }
 
-    // todo нужно доделать
-    @Override
-    public List<Instructor> findBySportClub(SportClub sportClub) {
-        entityManager.getTransaction().begin();
-        List<Instructor> instructors = null;
-        try {
-//            entityManager.createQuery("SELECT ");
-        } catch (PersistenceException pe){
-            entityManager.getTransaction().rollback();
-            throw pe;
-        }
-        return null;
-    }
+//    // todo нужно доделать
+//    @Override
+//    public List<Instructor> findBySportClub(SportClub sportClub) {
+//        entityManager.getTransaction().begin();
+//        List<Instructor> instructors = null;
+//        try {
+////            entityManager.createQuery("SELECT ");
+//        } catch (PersistenceException pe){
+//            entityManager.getTransaction().rollback();
+//            throw pe;
+//        }
+//        return null;
+//    }
 
     @Override
     public int update(Instructor instructor, String phone) {

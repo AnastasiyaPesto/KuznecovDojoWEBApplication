@@ -13,6 +13,6 @@ public interface InstructorDAO {
     List<Instructor> getAll();
     List<Instructor> findByFirstName(String firstName);
     List<Instructor> findWhereDegreeIsMore(int degree);
-    List<Instructor> findBySportClub(SportClub sportClub);
+//    List<Instructor> findBySportClub(SportClub sportClub);
     int update(Instructor instructor, String phone);
 }
