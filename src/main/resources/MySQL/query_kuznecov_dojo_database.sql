@@ -27,6 +27,11 @@ left join instructor
 on certificate.instr_id = instructor.instr_id
 where instructor.second_name = "Павел";
 
+select * from certificate
+left join instructor 
+on certificate.instr_id = instructor.instr_id
+where certificate.degree  >= 0; 
+
 -- update table_name
 -- set column1 = value1, column2 = value2, ..., columnN = valueN
 -- where [condition];

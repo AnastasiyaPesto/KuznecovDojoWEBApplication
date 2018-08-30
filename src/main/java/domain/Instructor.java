@@ -53,7 +53,7 @@ public class Instructor {
     }
 
     public void addCertificate(Certificate certificate) {
-        if (certificate == null) throw new IllegalArgumentException("Certificates shouldn't be null");
+        if (certificate == null) throw new IllegalArgumentException("Certificate shouldn't be null");
         this.certificateMap.put(certificate.getNumber(), certificate);
     }
 

@@ -1,11 +1,9 @@
 package test;
 
-import dao.CertificateDAO;
-import dao.CertificateDAOImpl;
-import dao.InstructorDAO;
-import dao.InstructorDAOImpl;
+import dao.*;
 import domain.Certificate;
 import domain.Instructor;
+import domain.SportClub;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
@@ -62,7 +60,8 @@ public class ApplicationH2 {
             for (String key : map.keySet()) {
                 System.out.println(map.get(key).toString());
             }
-            // todo delete(...) will implement
+            // todo не работает
+            certificateDAO.delete(instructor1, "0157_qw");
 
             // поиск инструкторов, у которых степень выше чем
             // todo не работает findWhereDegreeIsMore()
@@ -70,6 +69,16 @@ public class ApplicationH2 {
             for (Instructor instructor : instrWhereDegreeIsMore) {
                 System.out.println(instructor.toString());
             }
+
+            SportClubDAO sportClubDAO = new SportClubDAOImpl(em);
+            SportClub sportClub = sportClubDAO.create("Академическая", "пр. Науки, 41", "123456");
+
+            sportClubDAO.addInstructor(sportClub, instructor1);
+            sportClubDAO.addInstructor(sportClub, instructor2);
+            sportClubDAO.addInstructor(sportClub, instructor3);
+
+            sportClubDAO.deleteInstructor(sportClub, instructor1);
+
         } finally {
             em.close();
             emf.close();

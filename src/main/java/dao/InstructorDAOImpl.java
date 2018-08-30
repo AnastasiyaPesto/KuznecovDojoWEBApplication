@@ -28,7 +28,6 @@ public class InstructorDAOImpl implements InstructorDAO {
         entityManager.getTransaction().begin();
         try {
             entityManager.persist(instructor);
-            entityManager.persist(instructor);
             entityManager.getTransaction().commit();
         } catch (PersistenceException pe) {
             entityManager.getTransaction().rollback();
@@ -71,7 +70,7 @@ public class InstructorDAOImpl implements InstructorDAO {
         return instructors;
     }
 
-    // TODO подумать как сделать поиск по кю и дан
+    // TODO не работает join?
     @Override
     public List<Instructor> findWhereDegreeIsMore(int degree) {
         entityManager.getTransaction().begin();
@@ -90,6 +89,7 @@ public class InstructorDAOImpl implements InstructorDAO {
         return instructors;
     }
 
+    // todo нужно доделать
     @Override
     public List<Instructor> findBySportClub(SportClub sportClub) {
         entityManager.getTransaction().begin();
@@ -103,7 +103,6 @@ public class InstructorDAOImpl implements InstructorDAO {
         return null;
     }
 
-    // todo не работает
     @Override
     public int update(Instructor instructor, String phone) {
         if (instructor == null) throw new IllegalArgumentException("Instructor shouldn't be not null");

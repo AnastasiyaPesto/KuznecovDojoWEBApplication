@@ -2,7 +2,9 @@ package domain;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "sport_club")
@@ -27,7 +29,7 @@ public class SportClub {
             joinColumns = { @JoinColumn(name = "sc_id") },
             inverseJoinColumns = { @JoinColumn(name = "instr_id") }
     )
-    private List<Instructor> instructors = new ArrayList<>();
+    private Map<Integer, Instructor> instructors = new HashMap<>();
 
     public SportClub() {
     }
@@ -70,12 +72,25 @@ public class SportClub {
         this.phone = phone;
     }
 
-    public List<Instructor> getInstructors() {
+    public Map<Integer, Instructor> getInstructors() {
         return instructors;
     }
 
-    public void setInstructors(List<Instructor> instructors) {
-        this.instructors = instructors;
+    public void setInstructors(Map<Integer, Instructor> instructors) {
+        if (instructors == null) throw new IllegalArgumentException("Instructors shouldn't be null");
+
+        if (this.instructors == null) {
+            this.instructors = new HashMap<>();
+        }
+        for (Integer keyId : instructors.keySet()) {
+            this.instructors.put(keyId, instructors.get(keyId));
+        }
+    }
+
+    public void addInstructor(Instructor instructor) {
+        if (instructor == null) throw new IllegalArgumentException("Instructor shouldn't be null");
+        // todo нет проверки на дубликат instructor
+        this.instructors.put(instructor.getInstructorId(), instructor);
     }
 
     @Override
