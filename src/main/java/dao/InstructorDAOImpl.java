@@ -8,10 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
+import javax.persistence.*;
 import java.util.List;
 
 public class InstructorDAOImpl implements InstructorDAO {
@@ -30,6 +27,7 @@ public class InstructorDAOImpl implements InstructorDAO {
 
         entityManager.getTransaction().begin();
         try {
+            entityManager.persist(instructor);
             entityManager.persist(instructor);
             entityManager.getTransaction().commit();
         } catch (PersistenceException pe) {
@@ -85,6 +83,7 @@ public class InstructorDAOImpl implements InstructorDAO {
                     .getResultList();
             entityManager.getTransaction().commit();
         } catch (PersistenceException pe) {
+            // EntityExistsException
             entityManager.getTransaction().rollback();
             throw pe;
         }
@@ -111,12 +110,10 @@ public class InstructorDAOImpl implements InstructorDAO {
         entityManager.getTransaction().begin();
         int rowCountUpdate = 0;
         try {
-            rowCountUpdate = entityManager
-                    .createQuery("UPDATE Instructor i SET i.phone = :phone  WHERE i.instructorId = :id")
-                    .setParameter("id", instructor.getInstructorId())
-                    .setParameter("phone", phone)
-                    .executeUpdate();
+            Instructor foundInstructor = entityManager.find(Instructor.class, instructor.getInstructorId());
+            foundInstructor.setPhone(phone);
             entityManager.getTransaction().commit();
+            rowCountUpdate = 1;
         } catch (PersistenceException pe) {
             entityManager.getTransaction().rollback();
             throw pe;

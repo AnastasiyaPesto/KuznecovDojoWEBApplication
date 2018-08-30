@@ -7,6 +7,7 @@ import dao.InstructorDAOImpl;
 import domain.Certificate;
 import domain.Instructor;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -31,8 +32,13 @@ public class ApplicationH2 {
             // entity manager при коммите обнаружит изменение и сгенерирует запрос на UPDATE
             instructor1.setPhone("89115508989");
 
-            // todo не работает обновление телефона
             instructorDAO.update(instructor2, "+79117508272");
+
+            Instructor instructor4 = new Instructor();
+            boolean isManaged1 = em.contains(instructor1);
+            boolean isManaged2 = em.contains(instructor2);
+            boolean isManaged3 = em.contains(instructor3);
+            boolean isManaged4 = em.contains(instructor4);
 
             // GET ALL
             List<Instructor> instructors = instructorDAO.getAll();
@@ -60,7 +66,7 @@ public class ApplicationH2 {
 
             // поиск инструкторов, у которых степень выше чем
             // todo не работает findWhereDegreeIsMore()
-            List<Instructor> instrWhereDegreeIsMore = instructorDAO.findWhereDegreeIsMore(0);
+            List<Instructor> instrWhereDegreeIsMore = instructorDAO.findWhereDegreeIsMore(-6);
             for (Instructor instructor : instrWhereDegreeIsMore) {
                 System.out.println(instructor.toString());
             }
