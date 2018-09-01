@@ -52,12 +52,11 @@ public class InstructorDAOImplTest {
         assertEquals(firstName, createdInstructor.getFirstName());
         assertEquals(secondName, createdInstructor.getSecondName());
         assertEquals(age, createdInstructor.getAge());
-
-        // todo могу ли я на реальных даннных проверить вызов метода persist
-        // todo или этого не надо в данном тесте, так как assertEquals проверяем поля
     }
 
     @Test
+    //todo Какие-то неполадки в запросе. Внутри метода  этого приведен udpate
+    //todo Ожидаю, что SET по олному полю, а он как-то по всем прошел
     public void testUpdate_instructorAndPhone() {
         String firstName = "Иванов";
         String secondName = "Иван";
@@ -103,6 +102,9 @@ public class InstructorDAOImplTest {
         assertNull(em.find(Instructor.class, id));
     }
 
+    @Test
+    // todo Как сравнить arrayList'ы в итоге? По циклу нельзя,
+    // todo т.к. непонятно в каком порядке извечет из базы метод
     public void testGetAllCertificates_validId() {
         Instructor createdInstructor = dao.create("Иванов", "Иван", 47);
 
@@ -119,11 +121,10 @@ public class InstructorDAOImplTest {
         dao.addCertificate(createdInstructor, "KD_095", 3, dateCompleted3);
 
         ArrayList<Certificate> allCertificate = dao.getAllCertificate(createdInstructor.getInstructorId());
-        // ???????????????
-//        assertEquals();
     }
 
     @Test
+    // todo Можно ли пользовать EntityManager'ом внутри теста?
     public void testDeleteSportClubFrom_InstructorAndSportClub() {
         Instructor createdInstructor = dao.create("Иванов", "Иван", 47);
         SportClub  sportClub =  new SportClub("Лесная", "пр. Жизни, 15", "999");
@@ -140,6 +141,7 @@ public class InstructorDAOImplTest {
     }
 
     @Test
+    // todo Можно ли пользовать EntityManager'ом внутри теста?
     public void testAddSportClubToInstructor() {
         Instructor createdInstructor = dao.create("Иванов", "Иван", 47);
         SportClub  sportClub =  new SportClub("Лесная", "пр. Жизни, 15", "999");
@@ -156,6 +158,7 @@ public class InstructorDAOImplTest {
     }
 
     @Test
+    // todo Дата в конечно итоге сдвигается :(
     public void testWhenDeleteInstructorDeleteCertificates() {
         String firstName = "Иванов";
         String secondName = "Иван";
