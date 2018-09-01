@@ -9,9 +9,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class InstructorDAOImpl implements InstructorDAO {
     private final EntityManager entityManager;
@@ -128,7 +126,7 @@ public class InstructorDAOImpl implements InstructorDAO {
             instructor = entityManager.find(Instructor.class, id);
             Map<String, Certificate> certificates = instructor.getCertificateMap();
             for (String key : certificates.keySet()) {
-                certificates.remove(key);
+                entityManager.remove(certificates.get(key));
             }
             entityManager.remove(instructor);
             entityManager.getTransaction().commit();
@@ -148,6 +146,7 @@ public class InstructorDAOImpl implements InstructorDAO {
         entityManager.getTransaction().begin();
         try {
             Certificate certificate = new Certificate(number, degree, dateComplete);
+            entityManager.persist(certificate);
             instructor.addCertificate(certificate);
             entityManager.getTransaction().commit();
         } catch (PersistenceException pe) {
@@ -169,5 +168,22 @@ public class InstructorDAOImpl implements InstructorDAO {
             entityManager.getTransaction().rollback();
             throw pe;
         }
+    }
+
+    @Override
+    public ArrayList<Certificate> getAllCertificate(int id) {
+        ArrayList<Certificate> result = new ArrayList<>();
+        entityManager.getTransaction().begin();
+        try {
+            Instructor foundInstructor = entityManager.find(Instructor.class, id);
+            for(String key : foundInstructor.getCertificateMap().keySet()){
+                result.add(foundInstructor.getCertificateMap().get(key));
+            }
+            entityManager.getTransaction().commit();
+        } catch (PersistenceException pe) {
+            entityManager.getTransaction().rollback();
+            throw pe;
+        }
+        return result;
     }
 }

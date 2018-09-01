@@ -19,9 +19,10 @@ public class Certificate {
     private int degree;
 
     @Column(name = "date_pass")
+    @Temporal(value = TemporalType.DATE)
     private Date dateCompletion;
 
-    @OneToMany //(cascade = CascadeType.REMOVE)
+    @OneToOne //(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "instr_id")
     private Instructor instructor;
 

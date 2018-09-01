@@ -5,6 +5,7 @@ import domain.Instructor;
 import domain.SportClub;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -19,4 +20,5 @@ public interface InstructorDAO {
     Instructor delete(int id);
     void addCertificate(Instructor instructor, String number, int degree, Date dateComplete);
     void deleteSportClubFrom(Instructor instructor, SportClub sportClub);
+    ArrayList<Certificate> getAllCertificate(int id);
 }
