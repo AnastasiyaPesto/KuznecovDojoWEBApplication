@@ -54,6 +54,10 @@ public class Instructor {
 
     public void addCertificate(Certificate certificate) {
         if (certificate == null) throw new IllegalArgumentException("Certificate shouldn't be null");
+        if (this.certificateMap.containsKey(certificate.getNumber())) {
+            throw new IllegalArgumentException("Certificate with number " + certificate.getNumber()
+                    + " already exists");
+        }
         this.certificateMap.put(certificate.getNumber(), certificate);
     }
 
@@ -113,13 +117,14 @@ public class Instructor {
         if (this.sportClubs == null) {
             this.sportClubs = new HashMap<>();
         }
+        if (sportClubs.containsKey(sportClub.getSportClubId())) {
+            throw new IllegalArgumentException("The this instructor is already coaching at the sport club");
+        }
         this.sportClubs.put(sportClub.getSportClubId(), sportClub);
     }
 
-    public void deleteSportClub(SportClub sportClub) {
-        if (sportClubs.containsKey(sportClub.getSportClubId())) {
-            sportClubs.remove(sportClub.getSportClubId());
-        }
+    public boolean deleteSportClub(SportClub sportClub) {
+        return (sportClubs.remove(sportClub.getSportClubId()) != null);
     }
 
     @Override

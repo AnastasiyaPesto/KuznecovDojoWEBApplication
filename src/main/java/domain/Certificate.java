@@ -21,7 +21,7 @@ public class Certificate {
     @Column(name = "date_pass")
     private Date dateCompletion;
 
-    @OneToOne //(cascade = CascadeType.REMOVE)
+    @OneToMany //(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "instr_id")
     private Instructor instructor;
 

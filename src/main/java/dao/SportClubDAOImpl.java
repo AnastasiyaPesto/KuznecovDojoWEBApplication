@@ -29,12 +29,10 @@ public class SportClubDAOImpl implements SportClubDAO {
 
     @Override
     public void addInstructor(SportClub sportClub, Instructor instructor) {
-        if (sportClub == null) throw new IllegalArgumentException("Sport club shouldn't be not null");
+        if (sportClub == null) throw new IllegalArgumentException("Sport club shouldn't be null");
         entityManager.getTransaction().begin();
         try {
-            SportClub foundedSportClub = entityManager.find(SportClub.class, sportClub.getSportClubId());
             instructor.addSportClub(sportClub);
-            foundedSportClub.addInstructor(instructor);
             entityManager.getTransaction().commit();
         } catch (PersistenceException pe) {
             entityManager.getTransaction().rollback();
@@ -43,13 +41,25 @@ public class SportClubDAOImpl implements SportClubDAO {
     }
 
     @Override
-    public void deleteInstructor(SportClub sportClub, Instructor instructor) {
-        if (sportClub == null) throw new IllegalArgumentException("Sport club shouldn't be not null");
+    public void deleteInstructorFrom(SportClub sportClub, Instructor instructor) {
+        if (sportClub == null) throw new IllegalArgumentException("Sport club shouldn't be null");
         entityManager.getTransaction().begin();
         try {
-            SportClub foundedSportClub = entityManager.find(SportClub.class, sportClub.getSportClubId());
+            //todo удалить у инструктора спорт клуб
+            sportClub.getInstructors().remove(sportClub.getSportClubId());
             instructor.deleteSportClub(sportClub);
-            foundedSportClub.getInstructors().remove(instructor.getInstructorId());
+            entityManager.getTransaction().commit();
+        } catch (PersistenceException pe) {
+            entityManager.getTransaction().rollback();
+            throw pe;
+        }
+    }
+
+    @Override
+    public void delete(int id) {
+        entityManager.getTransaction().begin();
+        try {
+            entityManager.remove(entityManager.find(SportClub.class, id));
             entityManager.getTransaction().commit();
         } catch (PersistenceException pe) {
             entityManager.getTransaction().rollback();

@@ -16,7 +16,7 @@ import java.util.Map;
 public class ApplicationH2 {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence
-                .createEntityManagerFactory("H2KuznecovDojoPersistenceUnit");
+                .createEntityManagerFactory("TestKuznecovDojoPersistenceUnit");
         EntityManager em = emf.createEntityManager();
 
         try {
@@ -61,7 +61,7 @@ public class ApplicationH2 {
                 System.out.println(map.get(key).toString());
             }
             // todo не работает
-            certificateDAO.delete(instructor1, "0157_qw");
+            certificateDAO.deleteFrom(instructor1, "0157_qw");
 
             // поиск инструкторов, у которых степень выше чем
             // todo не работает findWhereDegreeIsMore()
@@ -77,7 +77,7 @@ public class ApplicationH2 {
             sportClubDAO.addInstructor(sportClub, instructor2);
             sportClubDAO.addInstructor(sportClub, instructor3);
 
-            sportClubDAO.deleteInstructor(sportClub, instructor1);
+            sportClubDAO.deleteInstructorFrom(sportClub, instructor1);
         } finally {
             em.close();
             emf.close();

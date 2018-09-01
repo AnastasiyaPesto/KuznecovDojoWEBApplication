@@ -25,13 +25,30 @@ public class CertificateDAOImpl implements CertificateDAO {
             // найти инструктора
             Instructor foundInstructor = entityManager.find(Instructor.class, instructor.getInstructorId());
             // добавить к нему сертификат
-            if (foundInstructor != null) {
-                if (foundInstructor.getCertificateMap().containsKey(certificate.getNumber())) {
-                    throw new IllegalArgumentException("Certificate already exists");
-                }
-                foundInstructor.addCertificate(certificate);
-            } else {
-                throw new IllegalArgumentException("Instructor is not found");
+            instructor.addCertificate(certificate);
+            entityManager.getTransaction().commit();
+        } catch (PersistenceException pe) {
+            entityManager.getTransaction().rollback();
+            throw pe;
+        }
+        return certificate;
+    }
+
+    @Override
+    public Certificate deleteFrom(Instructor instructor, String numberCert) {
+        entityManager.getTransaction().begin();
+        Certificate certificate = null;
+        try {
+            certificate = instructor.getCertificateMap().get(numberCert);
+
+            if (certificate == null) {
+                throw new IllegalArgumentException("Certificate not found in instructor which id = "
+                        + instructor.getInstructorId());
+            }
+            // entityManager.remove(certificate);
+            // todo либо удалить из мапы и все
+            if (instructor.getCertificateMap().remove(numberCert) == null) {
+                certificate = null;
             }
             entityManager.getTransaction().commit();
         } catch (PersistenceException pe) {
@@ -42,29 +59,14 @@ public class CertificateDAOImpl implements CertificateDAO {
     }
 
     @Override
-    public Certificate delete(Instructor instructor, String numberCert) {
+    public void delete(Certificate certificate) {
         entityManager.getTransaction().begin();
-        Certificate certificate = null;
         try {
-            // найти инструктора
-            Instructor foundInstructor = entityManager.find(Instructor.class, instructor.getInstructorId());
-            certificate = foundInstructor.getCertificateMap().get(numberCert);
-
-            if (certificate == null) {
-                throw new IllegalArgumentException("Certificate not found in instructor which id = "
-                        + instructor.getInstructorId());
-            }
-//            boolean isManaged = entityManager.contains(certificate);
-            int rowCountDeleted = entityManager
-                    .createQuery("DELETE FROM Certificate c WHERE c.number = :number")
-                    .setParameter("number", numberCert)
-                    .executeUpdate();
-    //            entityManager.remove(certificate);
+            entityManager.remove(certificate);
             entityManager.getTransaction().commit();
         } catch (PersistenceException pe) {
             entityManager.getTransaction().rollback();
             throw pe;
         }
-        return certificate;
     }
 }
