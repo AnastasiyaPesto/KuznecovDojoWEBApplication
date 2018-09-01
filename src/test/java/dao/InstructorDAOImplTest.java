@@ -2,6 +2,7 @@ package dao;
 
 import domain.Certificate;
 import domain.Instructor;
+import domain.SportClub;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,6 +15,7 @@ import javax.persistence.Persistence;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -87,7 +89,7 @@ public class InstructorDAOImplTest {
     }
 
     @Test
-    public void testDelete_validId () {
+    public void testDelete_validId() {
         String firstName = "Иванов";
         String secondName = "Иван";
         int age = 23;
@@ -101,6 +103,58 @@ public class InstructorDAOImplTest {
         assertNull(em.find(Instructor.class, id));
     }
 
+    public void testGetAllCertificates_validId() {
+        Instructor createdInstructor = dao.create("Иванов", "Иван", 47);
+
+        Date dateCompleted5 = null;
+        Date dateCompleted3 = null;
+        try {
+            dateCompleted5 = new SimpleDateFormat("dd.MM.YYYY").parse("01.05.2018");
+            dateCompleted3 = new SimpleDateFormat("dd.MM.YYYY").parse("17.10.2015");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        dao.addCertificate(createdInstructor, "KD_001", 5, dateCompleted5);
+        dao.addCertificate(createdInstructor, "KD_095", 3, dateCompleted3);
+
+        ArrayList<Certificate> allCertificate = dao.getAllCertificate(createdInstructor.getInstructorId());
+        // ???????????????
+//        assertEquals();
+    }
+
+    @Test
+    public void testDeleteSportClubFrom_InstructorAndSportClub() {
+        Instructor createdInstructor = dao.create("Иванов", "Иван", 47);
+        SportClub  sportClub =  new SportClub("Лесная", "пр. Жизни, 15", "999");
+
+        em.getTransaction().begin();
+        em.persist(sportClub);
+        em.getTransaction().commit();
+
+        dao.addSportClub(createdInstructor, sportClub);
+
+        assertEquals(1, createdInstructor.getSportClubs().size());
+        dao.deleteSportClubFrom(createdInstructor, sportClub);
+        assertEquals(0, createdInstructor.getSportClubs().size());
+    }
+
+    @Test
+    public void testAddSportClubToInstructor() {
+        Instructor createdInstructor = dao.create("Иванов", "Иван", 47);
+        SportClub  sportClub =  new SportClub("Лесная", "пр. Жизни, 15", "999");
+
+        em.getTransaction().begin();
+        em.persist(sportClub);
+        em.getTransaction().commit();
+
+        dao.addSportClub(createdInstructor, sportClub);
+
+        SportClub foundedSportClub = createdInstructor.getSportClubs().get(sportClub.getSportClubId());
+
+        assertEquals(sportClub.getSportClubId(), foundedSportClub.getSportClubId());
+    }
+
     @Test
     public void testWhenDeleteInstructorDeleteCertificates() {
         String firstName = "Иванов";
@@ -110,6 +164,7 @@ public class InstructorDAOImplTest {
         Instructor createdInstructor = dao.create(firstName, secondName, age);
         int id = createdInstructor.getInstructorId();
 
+        // todo проблема с датой. почитать help
         Date dateCompleted5 = null;
         Date dateCompleted3 = null;
         try {
@@ -162,6 +217,18 @@ public class InstructorDAOImplTest {
         List<Instructor> allInstructors = dao.getAll();
 
         assertEquals(3, allInstructors.size());
+    }
+
+    @Test
+    public void testFindByFirstName_validFirstName_foundedInstructor() throws ParseException {
+        String firstName = "Пестовникова";
+        Instructor instructor = dao.create(firstName, "Анастасия", 26);
+        dao.addCertificate(instructor, "KD_001", 5, new SimpleDateFormat("dd.MM.YYYY").parse("01.09.2018"));
+
+        List<Instructor> foudedIntsr = dao.findByFirstName(firstName);
+
+        assertEquals(1, foudedIntsr.size());
+        assertEquals(firstName, foudedIntsr.get(0).getFirstName());
     }
 
     @After

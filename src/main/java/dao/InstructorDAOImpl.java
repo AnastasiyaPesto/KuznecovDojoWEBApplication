@@ -171,6 +171,20 @@ public class InstructorDAOImpl implements InstructorDAO {
     }
 
     @Override
+    public void addSportClub(Instructor instructor, SportClub sportClub) {
+        if (instructor == null) throw new IllegalArgumentException("Instructor shouldn't be null");
+        SportClub sportClub1 = null;
+        entityManager.getTransaction().begin();
+        try {
+            instructor.addSportClub(sportClub);
+            entityManager.getTransaction().commit();
+        } catch(PersistenceException pe) {
+            entityManager.getTransaction().rollback();
+            throw pe;
+        }
+    }
+
+    @Override
     public ArrayList<Certificate> getAllCertificate(int id) {
         ArrayList<Certificate> result = new ArrayList<>();
         entityManager.getTransaction().begin();

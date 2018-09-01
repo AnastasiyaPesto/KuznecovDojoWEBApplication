@@ -3,6 +3,7 @@ package domain;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Objects;
 
 @Entity
 @Table(name = "certificate")
@@ -77,12 +78,16 @@ public class Certificate {
     }
 
     @Override
-    public String toString() {
-        return "Certificate{" +
-                "certificateId = " + certificateId +
-                ", number = '" + number + '\'' +
-                ", degree = '" + degree + '\'' +
-//                ", dateCompletion=" + dateCompletion +
-                '}';
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Certificate that = (Certificate) obj;
+        return degree == that.degree &&
+                Objects.equals(number, that.number);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(number, degree);
     }
 }
