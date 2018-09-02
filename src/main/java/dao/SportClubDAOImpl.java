@@ -32,7 +32,7 @@ public class SportClubDAOImpl implements SportClubDAO {
         if (sportClub == null) throw new IllegalArgumentException("Sport club shouldn't be null");
         entityManager.getTransaction().begin();
         try {
-            instructor.addSportClub(sportClub);
+            sportClub.addInstructor(instructor);
             entityManager.getTransaction().commit();
         } catch (PersistenceException pe) {
             entityManager.getTransaction().rollback();
@@ -46,7 +46,7 @@ public class SportClubDAOImpl implements SportClubDAO {
         entityManager.getTransaction().begin();
         try {
             //todo удалить у инструктора спорт клуб
-            sportClub.getInstructors().remove(sportClub.getSportClubId());
+            sportClub.getInstructors().remove(instructor.getInstructorId());
             instructor.deleteSportClub(sportClub);
             entityManager.getTransaction().commit();
         } catch (PersistenceException pe) {
