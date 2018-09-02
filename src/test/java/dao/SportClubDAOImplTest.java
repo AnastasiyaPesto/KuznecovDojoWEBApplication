@@ -85,7 +85,7 @@ public class SportClubDAOImplTest {
 
     private Instructor createAndPersistInstructor() {
         em.getTransaction().begin();
-        Instructor instructor = null;
+        Instructor instructor;
         try {
             instructor = new Instructor("Иванов", "Иван", 5,"1111");
             em.persist(instructor);
