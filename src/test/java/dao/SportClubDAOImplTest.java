@@ -72,7 +72,6 @@ public class SportClubDAOImplTest {
         assertEquals(0, createdSportClub.getInstructors().size());
     }
 
-    // todo как проверить через Assert
     @Test
     public void testDelete() {
         String metro = "Лесная";
@@ -81,6 +80,16 @@ public class SportClubDAOImplTest {
         SportClub sportClub = dao.create(metro, address, phone);
 
         dao.delete(sportClub.getSportClubId());
+
+        em.getTransaction().begin();
+
+        try {
+            em.find(SportClub.class, sportClub.getSportClubId());
+            em.getTransaction().commit();
+        } catch (PersistenceException pe) {
+            em.getTransaction().rollback();
+            throw pe;
+        }
     }
 
     private Instructor createAndPersistInstructor() {
