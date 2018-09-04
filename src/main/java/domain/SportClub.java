@@ -89,7 +89,6 @@ public class SportClub {
 
     public void addInstructor(Instructor instructor) {
         if (instructor == null) throw new IllegalArgumentException("Instructor shouldn't be null");
-        // todo нет проверки на дубликат instructor
         this.instructors.put(instructor.getInstructorId(), instructor);
     }
 

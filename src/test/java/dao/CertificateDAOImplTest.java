@@ -118,7 +118,7 @@ public class CertificateDAOImplTest {
         assertEquals(3, all.size());
     }
 
-    // todo как проверить через assert
+
     @Test
     public void testDelete() {
         String number = "KD_001";
@@ -132,6 +132,16 @@ public class CertificateDAOImplTest {
 
         Certificate createdCertificate = dao.create(number, degree, date);
         dao.delete(createdCertificate.getCertificateId());
+
+        em.getTransaction().begin();
+
+        try {
+            assertNull(em.find(Certificate.class, createdCertificate.getCertificateId()));
+            em.getTransaction().commit();
+        } catch (PersistenceException pe) {
+            em.getTransaction().rollback();
+            throw pe;
+        }
     }
 
     @Test

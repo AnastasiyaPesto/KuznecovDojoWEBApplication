@@ -45,7 +45,7 @@ public class CertificateDAOImpl implements CertificateDAO {
                         + instructor.getInstructorId());
             }
             // entityManager.remove(certificate);
-            // todo либо удалить из мапы и все
+            // либо удалить из мапы и все
             if (instructor.getCertificateMap().remove(numberCert) == null) {
                 certificate = null;
             }

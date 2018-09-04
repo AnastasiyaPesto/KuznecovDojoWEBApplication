@@ -82,9 +82,8 @@ public class SportClubDAOImplTest {
         dao.delete(sportClub.getSportClubId());
 
         em.getTransaction().begin();
-
         try {
-            em.find(SportClub.class, sportClub.getSportClubId());
+            assertNull(em.find(SportClub.class, sportClub.getSportClubId()));
             em.getTransaction().commit();
         } catch (PersistenceException pe) {
             em.getTransaction().rollback();

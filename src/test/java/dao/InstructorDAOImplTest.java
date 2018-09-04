@@ -12,6 +12,7 @@ import org.mockito.Mockito;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -87,6 +88,7 @@ public class InstructorDAOImplTest {
 //        instr_id=?
     }
 
+    // todo нужно ли в тест begin и commit при вызове find?
     @Test
     public void testDelete_validId() {
         String firstName = "Иванов";
@@ -99,7 +101,14 @@ public class InstructorDAOImplTest {
 
         dao.delete(id);
 
-        assertNull(em.find(Instructor.class, id));
+        em.getTransaction().begin();
+        try {
+            assertNull(em.find(Instructor.class, id));
+            em.getTransaction().commit();
+        } catch (PersistenceException pe) {
+            em.getTransaction().rollback();
+            throw pe;
+        }
     }
 
     @Test
@@ -124,7 +133,6 @@ public class InstructorDAOImplTest {
     }
 
     @Test
-    // todo Можно ли пользовать EntityManager'ом внутри теста?
     public void testDeleteSportClubFrom_InstructorAndSportClub() {
         Instructor createdInstructor = dao.create("Иванов", "Иван", 47);
         SportClub  sportClub =  new SportClub("Лесная", "пр. Жизни, 15", "999");
@@ -141,7 +149,6 @@ public class InstructorDAOImplTest {
     }
 
     @Test
-    // todo Можно ли пользовать EntityManager'ом внутри теста?
     public void testAddSportClubToInstructor() {
         Instructor createdInstructor = dao.create("Иванов", "Иван", 47);
         SportClub  sportClub =  new SportClub("Лесная", "пр. Жизни, 15", "999");

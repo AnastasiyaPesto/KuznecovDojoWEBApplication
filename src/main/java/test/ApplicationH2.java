@@ -60,7 +60,7 @@ public class ApplicationH2 {
             for (String key : map.keySet()) {
                 System.out.println(map.get(key).toString());
             }
-            // todo не работает
+
             certificateDAO.deleteFrom(instructor1, "0157_qw");
 
             // поиск инструкторов, у которых степень выше чем

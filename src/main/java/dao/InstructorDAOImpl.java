@@ -70,7 +70,6 @@ public class InstructorDAOImpl implements InstructorDAO {
         return instructors;
     }
 
-    // TODO не работает join?
     @Override
     public List<Instructor> findWhereDegreeIsMore(int degree) {
         entityManager.getTransaction().begin();
