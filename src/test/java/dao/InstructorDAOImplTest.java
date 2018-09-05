@@ -56,8 +56,6 @@ public class InstructorDAOImplTest {
     }
 
     @Test
-    //todo Какие-то неполадки в запросе. Внутри метода  этого приведен udpate
-    //todo Ожидаю, что SET по олному полю, а он как-то по всем прошел
     public void testUpdate_instructorAndPhone() {
         String firstName = "Иванов";
         String secondName = "Иван";
@@ -88,7 +86,6 @@ public class InstructorDAOImplTest {
 //        instr_id=?
     }
 
-    // todo нужно ли в тест begin и commit при вызове find?
     @Test
     public void testDelete_validId() {
         String firstName = "Иванов";
@@ -130,6 +127,9 @@ public class InstructorDAOImplTest {
         dao.addCertificate(createdInstructor, "KD_095", 3, dateCompleted3);
 
         ArrayList<Certificate> allCertificate = dao.getAllCertificate(createdInstructor.getInstructorId());
+
+        // assertTrue (list.contains(cert))
+        // equals написать
     }
 
     @Test
