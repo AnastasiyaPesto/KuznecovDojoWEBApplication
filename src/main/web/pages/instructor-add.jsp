@@ -15,7 +15,7 @@
             Имя: <input type="text" name="secondName">
         </p>
         <p>
-            Возраст: <input type="number" name="age">
+            Возраст: <input type="number" min="16" max="80" name="age">
         </p>
         <p>
             Телефон: <input type="text" name="phone">

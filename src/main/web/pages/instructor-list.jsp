@@ -6,10 +6,10 @@
     <title>Школа карате - Kuznecov Dojo</title>
 </head>
 <body>
-<h1>Привет, ${instructorListBean.userAgent}</h1>
+<h1>Привет, будущий чемпион!</h1>
 <c:choose>
     <c:when test="${not empty instructorListBean.instructors}">
-        <table>
+        <table border="1">
             <tbody>
             <c:forEach items="${instructorListBean.instructors}" var="instructor">
                 <tr>
