@@ -2,15 +2,19 @@ package dao;
 
 import domain.Certificate;
 import domain.Instructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.Date;
 
+@Service
 public class CertificateDAOImpl implements CertificateDAO {
     private final EntityManager entityManager;
 
+    @Autowired
     public CertificateDAOImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }

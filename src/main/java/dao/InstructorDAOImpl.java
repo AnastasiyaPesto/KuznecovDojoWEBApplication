@@ -7,13 +7,17 @@ import domain.SportClub;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 import java.util.*;
 
+@Service
 public class InstructorDAOImpl implements InstructorDAO {
     private final EntityManager entityManager;
 
+    @Autowired
     public InstructorDAOImpl(EntityManager em) {
         this.entityManager = em;
     }

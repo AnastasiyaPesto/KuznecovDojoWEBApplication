@@ -2,13 +2,17 @@ package dao;
 
 import domain.Instructor;
 import domain.SportClub;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 
+@Service
 public class SportClubDAOImpl implements SportClubDAO {
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
+    @Autowired
     public SportClubDAOImpl(EntityManager em) {
         this.entityManager = em;
     }
