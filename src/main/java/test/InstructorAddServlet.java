@@ -1,20 +1,17 @@
-package web;
-
+package test;
 
 import dao.InstructorDAO;
-import dao.InstructorDAOImpl;
 import domain.Instructor;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "/instructors/add")
+//@WebServlet(urlPatterns = "/instructors/add")
 public class InstructorAddServlet extends HttpServlet {
-    private InstructorDAO instructorDAO = new InstructorDAOImpl(ApplicationListener.getEntityManager());
+    private InstructorDAO instructorDAO;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -50,4 +47,3 @@ public class InstructorAddServlet extends HttpServlet {
         resp.sendRedirect("/instructors/all");
     }
 }
-

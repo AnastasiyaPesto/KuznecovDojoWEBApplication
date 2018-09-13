@@ -31,5 +31,9 @@
     <a href="/instructors/add">Добавить инструктора</a>
 </p>
 
+<p>
+    <a href="/instructors/findByFirstName">Найти иструктора</a>
+</p>
+
 </body>
 </html>

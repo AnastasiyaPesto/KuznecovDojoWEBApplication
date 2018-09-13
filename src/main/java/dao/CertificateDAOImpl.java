@@ -12,26 +12,26 @@ import java.util.Date;
 
 @Service
 public class CertificateDAOImpl implements CertificateDAO {
-    private final EntityManager entityManager;
+    private final EntityManager em;
 
     @Autowired
-    public CertificateDAOImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
+    public CertificateDAOImpl(EntityManager em) {
+        this.em = em;
     }
 
     @Override
     public Certificate addTo(Instructor instructor, String numberCert, int degree, Date dateComplete) {
-        entityManager.getTransaction().begin();
+        em.getTransaction().begin();
         Certificate certificate = null;
         try {
             // создать сертификат
             certificate = new Certificate(numberCert, degree, dateComplete);
-            entityManager.persist(certificate);
+            em.persist(certificate);
             // добавить к нему сертификат
             instructor.addCertificate(certificate);
-            entityManager.getTransaction().commit();
+            em.getTransaction().commit();
         } catch (PersistenceException pe) {
-            entityManager.getTransaction().rollback();
+            em.getTransaction().rollback();
             throw pe;
         }
         return certificate;
@@ -39,7 +39,7 @@ public class CertificateDAOImpl implements CertificateDAO {
 
     @Override
     public Certificate deleteFrom(Instructor instructor, String numberCert) {
-        entityManager.getTransaction().begin();
+        em.getTransaction().begin();
         Certificate certificate = null;
         try {
             certificate = instructor.getCertificateMap().get(numberCert);
@@ -53,9 +53,9 @@ public class CertificateDAOImpl implements CertificateDAO {
             if (instructor.getCertificateMap().remove(numberCert) == null) {
                 certificate = null;
             }
-            entityManager.getTransaction().commit();
+            em.getTransaction().commit();
         } catch (PersistenceException pe) {
-            entityManager.getTransaction().rollback();
+            em.getTransaction().rollback();
             throw pe;
         }
         return certificate;
@@ -63,27 +63,27 @@ public class CertificateDAOImpl implements CertificateDAO {
 
     @Override
     public void delete(int id) {
-        entityManager.getTransaction().begin();
+        em.getTransaction().begin();
         try {
-            Certificate certificate = entityManager.find(Certificate.class, id);
-            entityManager.remove(certificate);
-            entityManager.getTransaction().commit();
+            Certificate certificate = em.find(Certificate.class, id);
+            em.remove(certificate);
+            em.getTransaction().commit();
         } catch (PersistenceException pe) {
-            entityManager.getTransaction().rollback();
+            em.getTransaction().rollback();
             throw pe;
         }
     }
 
     @Override
     public Certificate create(String number, int degree, Date dateCompleted) {
-        entityManager.getTransaction().begin();
+        em.getTransaction().begin();
         Certificate certificate = null;
         try {
             certificate = new Certificate(number, degree, dateCompleted);
-            entityManager.persist(certificate);
-            entityManager.getTransaction().commit();
+            em.persist(certificate);
+            em.getTransaction().commit();
         } catch (PersistenceException pe) {
-            entityManager.getTransaction().rollback();
+            em.getTransaction().rollback();
             throw pe;
         }
         return certificate;
@@ -92,14 +92,14 @@ public class CertificateDAOImpl implements CertificateDAO {
     @Override
     public ArrayList<Certificate> getAll() {
         ArrayList<Certificate> result;
-        entityManager.getTransaction().begin();
+        em.getTransaction().begin();
         try {
-            result = (ArrayList<Certificate>) entityManager
+            result = (ArrayList<Certificate>) em
                     .createQuery("SELECT c FROM Certificate c", Certificate.class)
                     .getResultList();
-            entityManager.getTransaction().commit();
+            em.getTransaction().commit();
         } catch (PersistenceException pe) {
-            entityManager.getTransaction().rollback();
+            em.getTransaction().rollback();
             throw pe;
         }
         return result;

@@ -1,8 +1,9 @@
-package web;
+package test;
 
 import dao.InstructorDAO;
 import dao.InstructorDAOImpl;
 import domain.Instructor;
+import web.InstructorListBean;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,9 +17,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(urlPatterns = "/instructors/all")
+//@WebServlet(urlPatterns = "/instructors/all")
 public class InstructorListServlet extends HttpServlet {
-    private InstructorDAO instructorDAO = new InstructorDAOImpl(ApplicationListener.getEntityManager());
+    private InstructorDAO instructorDAO;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,7 +31,7 @@ public class InstructorListServlet extends HttpServlet {
         // Значит нам не нужно тут делать огромный try/catch
         List<Instructor> instructors = instructorDAO.getAll();
 
-        InstructorListBean instructorListBean = new InstructorListBean(userAgent, instructors);
+        InstructorListBean instructorListBean = new InstructorListBean(instructors);
 
         req.setAttribute("instructorListBean", instructorListBean);
         req.getRequestDispatcher("/pages/instructor-list.jsp").forward(req, resp);

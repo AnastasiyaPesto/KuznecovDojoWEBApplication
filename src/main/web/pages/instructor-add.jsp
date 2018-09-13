@@ -5,7 +5,6 @@
 </head>
 <body>
     <h1>Добавить нового инструктора</h1>
-
     <form action="/instructors/add" method="post" enctype="application/x-www-form-urlencoded">
         <p>
             <%--<label></label>--%>
@@ -21,7 +20,7 @@
             Телефон: <input type="text" name="phone">
         </p>
         <p>
-            <input type="submit" />
+            <input type="submit"/>
         </p>
     </form>
 </body>
