@@ -9,7 +9,7 @@
 <h2>Найденные инструктора по запросу</h2>
     <c:choose>
         <c:when test="${not empty instructorListBean.instructors}">
-            <table border="1">
+            <table>
                 <tbody>
                 <c:forEach items="${instructorListBean.instructors}" var="instructor">
                     <tr>

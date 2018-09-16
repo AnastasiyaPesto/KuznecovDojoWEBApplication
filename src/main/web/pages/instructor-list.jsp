@@ -32,7 +32,7 @@
 </p>
 
 <p>
-    <a href="/instructors/findByFirstName">Найти иструктора</a>
+    <a href="/instructors/find/firstName">Найти иструктора</a>
 </p>
 
 </body>

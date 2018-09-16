@@ -1,4 +1,4 @@
-package web;
+package web.instructors.find;
 
 import dao.InstructorDAO;
 import domain.Instructor;
@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import web.InstructorListBean;
 
 import java.util.List;
 
@@ -20,23 +21,18 @@ public class InstructorsFindByFirstNameController {
         this.instructorDAO = instructorDAO;
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/instructors/findByFirstName")
+    @RequestMapping(method = RequestMethod.POST, path = "/instructors/find/firstName")
     public String findByFirstNamePostForm(@RequestParam String firstName, ModelMap modelMap) {
         List<Instructor> instructors = instructorDAO.findByFirstName(firstName);
         InstructorListBean instructorListBean = new InstructorListBean(instructors);
 
         modelMap.put("instructorListBean", instructorListBean);
 
-        return "instructor-foundedinstructorsbyfirstname";
+        return "instructors/find/firstName";
     }
 
-//    @RequestMapping(method = RequestMethod.GET, path = "/instructors/foundedByFirstName")
-//    public String foundedInstructors() {
-//        return "instructor-foundedinstructorsbyfirstname";
-//    }
-
-    @RequestMapping(method = RequestMethod.GET, path = "/instructors/findByFirstName")
+    @RequestMapping(method = RequestMethod.GET, path = "/instructors/find/firstName")
     public String findByFirstNamePostFormShowForm(){
-        return "instructor-findbyfirstname";
+        return "instructors/find/firstname";
     }
 }
