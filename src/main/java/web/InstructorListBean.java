@@ -11,6 +11,10 @@ public class InstructorListBean {
         this.instructors = instructors;
     }
 
+    public InstructorListBean() {
+
+    }
+
     public List<Instructor> getInstructors() {
         return instructors;
     }

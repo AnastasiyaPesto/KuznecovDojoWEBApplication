@@ -28,11 +28,12 @@ public class InstructorsFindByFirstNameController {
 
         modelMap.put("instructorListBean", instructorListBean);
 
-        return "instructors/find/firstName";
+        return "instructors/find/firstname";
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/instructors/find/firstName")
-    public String findByFirstNamePostFormShowForm(){
+    public String findByFirstNameShowForm(ModelMap modelMap){
+        modelMap.put("instructorListBean", new InstructorListBean());
         return "instructors/find/firstname";
     }
 }
