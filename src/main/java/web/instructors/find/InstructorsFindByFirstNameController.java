@@ -47,7 +47,6 @@ public class InstructorsFindByFirstNameController {
 
     @RequestMapping(method = RequestMethod.GET, path = "/instructors/find/firstName")
     public String findByFirstNameShowForm(){
-    public String findByFirstNameShowForm(){
         return "instructors/find/firstname";
     }
 }
