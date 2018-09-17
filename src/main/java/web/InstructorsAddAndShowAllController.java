@@ -5,9 +5,12 @@ import domain.Instructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import web.instructors.InstructorAddFormBean;
 
 import java.util.List;
 
@@ -18,6 +21,11 @@ public class InstructorsAddAndShowAllController {
     @Autowired
     public InstructorsAddAndShowAllController(InstructorDAO instructorDAO) {
         this.instructorDAO = instructorDAO;
+    }
+
+    @ModelAttribute("formAddBean")
+    public InstructorAddFormBean createDefaultFormBean() {
+        return new InstructorAddFormBean();
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/instructors/all")
@@ -41,29 +49,36 @@ public class InstructorsAddAndShowAllController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/instructors/add")
-    public String addInstructorPostForm(@RequestParam String firstName,
-                                        @RequestParam String secondName,
-                                        @RequestParam int age,
-                                        @RequestParam String phone,
+    public String addInstructorPostForm(@ModelAttribute("formAddBean") InstructorAddFormBean addFormBean,
+                                        BindingResult binding,
                                         ModelMap modelMap){
-        if (firstName == null) {
-            throw new IllegalArgumentException("firstName is missing");
+        if (addFormBean.getFirstName().isEmpty()) {
+            binding.addError(new FieldError("formAddBean",
+                    "firstName",
+                    "Фамилия пустая"));
         }
 
-        if (secondName == null) {
-            throw new IllegalArgumentException("secondName is missing");
+        if (addFormBean.getSecondName().isEmpty()) {
+            binding.addError(new FieldError("formAddBean",
+                    "secondName",
+                    "Имя пустое"));
         }
 
-        if (age <= 0) {
-            throw new IllegalArgumentException("age is missing");
+        if (addFormBean.getAge() <= 15) {
+            binding.addError(new FieldError("formAddBean",
+                    "age",
+                    "Возраст должен быть больше 15"));
         }
 
-        if (phone == null) {
-            throw new IllegalArgumentException("phone is missing");
+        if (binding.hasErrors()) {
+            return "instructor-add";
         }
 
-        Instructor instructor = instructorDAO.create(firstName, secondName, age);
-        instructorDAO.update(instructor, phone);
+        Instructor instructor = instructorDAO.create(
+                addFormBean.getFirstName(),
+                addFormBean.getSecondName(),
+                addFormBean.getAge());
+        instructorDAO.update(instructor, addFormBean.getPhone());
 
         return instructorAllList(modelMap);
     }

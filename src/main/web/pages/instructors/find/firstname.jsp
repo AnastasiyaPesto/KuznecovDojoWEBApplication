@@ -1,20 +1,25 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <jsp:useBean id="instructorListBean" type="web.InstructorListBean" scope="request" />
+<jsp:useBean id="instructorFindBean" type="web.instructors.find.InstructorFindBean" scope="request" />
 <html>
 <head>
     <title>Поиск инструктора</title>
 </head>
 <body>
     <h1>Поиск инструктора по фамилии</h1>
-    <form action="/instructors/find/firstName" method="post" enctype="application/x-www-form-urlencoded">
+    <form:form action="/instructors/find/firstName"
+               method="post"
+               enctype="application/x-www-form-urlencoded"
+               modelAttribute="instructorFindBean">
         <p><b>Введите фамилию инструктора:</b><br>
-            <input type="text" size="40" name="firstName">
+            <form:input type="text" path="firstName"/>
         </p>
         <p>
             <input type="submit" value="Найти"/>
         </p>
-    </form>
+    </form:form>
     <c:choose>
         <c:when test="${instructorListBean.instructors.size() > 0}">
         <table>
