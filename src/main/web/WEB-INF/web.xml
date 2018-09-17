@@ -12,12 +12,13 @@
             <param-name>contextClass</param-name>
             <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
         </init-param>
+
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>web.KuznecovDojoProdConfiguration</param-value>
         </init-param>
 
-        <!-- Загрузка сразу поле deploy сервера -->
+        <!-- Загрузка сразу после deploy сервера -->
         <load-on-startup>1</load-on-startup>
     </servlet>
 

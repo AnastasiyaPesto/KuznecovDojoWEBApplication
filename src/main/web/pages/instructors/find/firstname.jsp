@@ -21,7 +21,7 @@
         </p>
     </form:form>
     <c:choose>
-        <c:when test="${instructorListBean.instructors.size() > 0}">
+        <c:when test="${not empty instructorListBean.instructors}">
         <table>
             <h2>Найденные инструктора по запросу</h2>
             <tbody>
@@ -36,7 +36,7 @@
             </tbody>
         </table>
         </c:when>
-        <c:when test="${instructorListBean.instructors.size() == 0}">
+        <c:when test="${empty instructorListBean.instructors and instructorListBean.nowIsSearch}">
             Не найдено
         </c:when>
     </c:choose>

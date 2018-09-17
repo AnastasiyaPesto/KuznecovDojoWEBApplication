@@ -39,13 +39,14 @@ public class InstructorsFindByFirstNameController {
             ModelMap modelMap) {
         List<Instructor> instructors = instructorDAO.findByFirstName(instructorFindBean.getFirstName());
         InstructorListBean instructorListBean = new InstructorListBean(instructors);
-
+        instructorListBean.setNowIsSearch(true);
         modelMap.put("instructorListBean", instructorListBean);
 
         return "instructors/find/firstname";
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/instructors/find/firstName")
+    public String findByFirstNameShowForm(){
     public String findByFirstNameShowForm(){
         return "instructors/find/firstname";
     }
