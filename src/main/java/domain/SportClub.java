@@ -20,7 +20,7 @@ public class SportClub {
     @Column(nullable = false)
     private String address;
 
-    @Column
+    @Column(nullable = false)
     private String phone;
 
     @ManyToMany

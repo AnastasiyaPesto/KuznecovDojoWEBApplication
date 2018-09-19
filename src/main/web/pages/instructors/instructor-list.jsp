@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:useBean id="instructorListBean" type="web.InstructorListBean" scope="request" />
+<jsp:useBean id="instructorListBean" type="web.instructors.InstructorListBean" scope="request" />
 <html>
 <head>
     <title>Школа карате - Kuznecov Dojo</title>
@@ -30,9 +30,11 @@
 <p>
     <a href="/instructors/add">Добавить инструктора</a>
 </p>
-
 <p>
     <a href="/instructors/find/firstName">Найти иструктора</a>
+</p>
+<p>
+    <a href="/sportclubs/add">Добавить спортивный клуб</a>
 </p>
 
 </body>

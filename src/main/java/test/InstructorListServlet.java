@@ -1,20 +1,14 @@
 package test;
 
 import dao.InstructorDAO;
-import dao.InstructorDAOImpl;
 import domain.Instructor;
-import web.InstructorListBean;
+import web.instructors.InstructorListBean;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 //@WebServlet(urlPatterns = "/instructors/all")

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
+import java.util.List;
 
 @Service
 public class SportClubDAOImpl implements SportClubDAO {
@@ -68,5 +69,21 @@ public class SportClubDAOImpl implements SportClubDAO {
             entityManager.getTransaction().rollback();
             throw pe;
         }
+    }
+
+    @Override
+    public List<SportClub> getAll() {
+        entityManager.getTransaction().begin();
+        List<SportClub> sportClubs = null;
+        try {
+            sportClubs = entityManager
+                    .createQuery("SELECT s FROM SportClub s", SportClub.class)
+                    .getResultList();
+            entityManager.getTransaction().commit();
+        } catch (PersistenceException pe) {
+            entityManager.getTransaction().rollback();
+            throw pe;
+        }
+        return sportClubs;
     }
 }

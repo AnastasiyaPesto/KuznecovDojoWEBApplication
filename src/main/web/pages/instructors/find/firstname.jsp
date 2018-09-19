@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<jsp:useBean id="instructorListBean" type="web.InstructorListBean" scope="request" />
+<jsp:useBean id="instructorListBean" type="web.instructors.InstructorListBean" scope="request" />
 <jsp:useBean id="instructorFindBean" type="web.instructors.find.InstructorFindBean" scope="request" />
 <html>
 <head>

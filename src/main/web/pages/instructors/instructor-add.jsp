@@ -34,7 +34,7 @@
             Телефон: <form:input type="text" path="phone"/>
         </p>
         <p>
-            <input type="submit"/>
+            <input type="submit" value="Готово"/>
         </p>
     </form:form>
 </body>

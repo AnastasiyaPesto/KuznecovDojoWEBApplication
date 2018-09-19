@@ -1,4 +1,4 @@
-package web;
+package web.instructors;
 
 import domain.Instructor;
 
@@ -20,7 +20,7 @@ public class InstructorListBean {
         return instructors;
     }
 
-    public boolean isNowIsSearch() {
+    public boolean getNowIsSearch() {
         return nowIsSearch;
     }
 

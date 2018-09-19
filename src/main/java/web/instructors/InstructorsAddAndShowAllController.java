@@ -1,4 +1,4 @@
-package web;
+package web.instructors;
 
 import dao.InstructorDAO;
 import domain.Instructor;
@@ -10,8 +10,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import web.instructors.InstructorAddFormBean;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -40,18 +40,17 @@ public class InstructorsAddAndShowAllController {
 
         modelMap.put("instructorListBean", instructorListBean);
 
-        return "instructor-list";
+        return "instructors/instructor-list";
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/instructors/add")
     public String addInstructorShowForm(){
-        return "instructor-add";
+        return "instructors/instructor-add";
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/instructors/add")
-    public String addInstructorPostForm(@ModelAttribute("formAddBean") InstructorAddFormBean addFormBean,
-                                        BindingResult binding,
-                                        ModelMap modelMap){
+    public String addInstructorPostForm(@Valid @ModelAttribute("formAddBean") InstructorAddFormBean addFormBean,
+                                        BindingResult binding){
         if (addFormBean.getFirstName().isEmpty()) {
             binding.addError(new FieldError("formAddBean",
                     "firstName",
@@ -71,7 +70,7 @@ public class InstructorsAddAndShowAllController {
         }
 
         if (binding.hasErrors()) {
-            return "instructor-add";
+            return "instructors/instructor-add";
         }
 
         Instructor instructor = instructorDAO.create(
@@ -80,6 +79,6 @@ public class InstructorsAddAndShowAllController {
                 addFormBean.getAge());
         instructorDAO.update(instructor, addFormBean.getPhone());
 
-        return instructorAllList(modelMap);
+        return "redirect:/instructors/all";
     }
 }
