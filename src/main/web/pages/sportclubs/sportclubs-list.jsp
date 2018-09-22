@@ -9,7 +9,7 @@
 <h1>Все спортивные клубы, где проходят тренировки</h1>
 <c:choose>
     <c:when test="${not empty sporClubsAllBean.sportClubs}">
-        <table border="1">
+        <table cellpadding="2" border="1">
             <tbody>
             <c:forEach items="${sporClubsAllBean.sportClubs}" var="sportclub">
                 <tr>

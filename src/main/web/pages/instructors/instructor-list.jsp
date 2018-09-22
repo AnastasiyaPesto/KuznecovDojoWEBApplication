@@ -9,18 +9,29 @@
 <h1>Привет, будущий чемпион!</h1>
 <c:choose>
     <c:when test="${not empty instructorListBean.instructors}">
-        <table border="1">
-            <tbody>
-            <c:forEach items="${instructorListBean.instructors}" var="instructor">
+        <form method="post" action="/instructors/all">
+            <input type="submit" value="Удалить">
+            <br/>
+            <br/>
+            <table cellpadding="4" border="1">
                 <tr>
-                    <td>${instructor.firstName}</td>
-                    <td>${instructor.secondName}</td>
-                    <td>${instructor.age}</td>
-                    <td>${instructor.phone}</td>
+                    <th></th>
+                    <th>Фамилия</th>
+                    <th>Имя</th>
+                    <th>Возраст</th>
+                    <th>Телефон</th>
                 </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+                <c:forEach items="${instructorListBean.instructors}" var="instructor">
+                    <tr>
+                        <td align="center"><input type="checkbox" name="selectedInstr" value="${instructor.instructorId}"></td>
+                        <td>${instructor.firstName}</td>
+                        <td>${instructor.secondName}</td>
+                        <td>${instructor.age}</td>
+                        <td>${instructor.phone}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </form>
     </c:when>
     <c:otherwise>
         <p>Нет инструкторов.</p>

@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<jsp:useBean id="formAddBean" scope="request" type="web.instructors.InstructorAddFormBean"/>
+<jsp:useBean id="formAddBean" scope="request" type="web.instructors.add.InstructorAddFormBean"/>
 <html>
 <head>
     <title>Добавление инструктора</title>

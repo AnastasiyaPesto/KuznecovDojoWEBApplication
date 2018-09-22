@@ -1,4 +1,4 @@
-package web.instructors;
+package web.instructors.add;
 
 public class InstructorAddFormBean {
     private String firstName = "";

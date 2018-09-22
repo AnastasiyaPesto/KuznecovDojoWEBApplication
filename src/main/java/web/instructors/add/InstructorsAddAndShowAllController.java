@@ -1,4 +1,4 @@
-package web.instructors;
+package web.instructors.add;
 
 import dao.InstructorDAO;
 import domain.Instructor;
@@ -10,6 +10,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import web.instructors.InstructorListBean;
 
 import javax.validation.Valid;
 import java.util.List;
