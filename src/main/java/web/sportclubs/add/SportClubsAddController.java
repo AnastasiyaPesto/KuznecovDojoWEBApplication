@@ -1,7 +1,6 @@
-package web.sportclubs;
+package web.sportclubs.add;
 
 import dao.SportClubDAO;
-import dao.SportClubDAOImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

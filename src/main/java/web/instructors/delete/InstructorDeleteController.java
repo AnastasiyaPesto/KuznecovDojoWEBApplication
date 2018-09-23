@@ -5,6 +5,8 @@ import dao.InstructorDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,14 +25,22 @@ public class InstructorDeleteController {
         this.instructorDAO = instructorDAO;
     }
 
-    @ModelAttribute("formAddBean")
-    public InstructorAddFormBean createDefaultFormBean() {
-        return new InstructorAddFormBean();
-    }
+    // @ModelAttribute("formAddBean")
+    // public InstructorAddFormBean createDefaultFormBean() {
+      //  return new InstructorAddFormBean();
+    // }
 
     @RequestMapping(method = RequestMethod.POST, path = "instructors/all")
     public String deleteInstructors(@RequestParam("selectedInstr") List<Integer> instructorsIds,
-                                    ModelMap model) {
+                                    ModelMap model
+                                    /*BindingResult binding*/) {
+//        if (instructorsIds.size() == 0) {
+//            binding.addError(new FieldError(
+//                    "",
+//                    "selectedInstr",
+//                    "Для удаления выберите хотя бы одного инструктора"));
+//            return "redirect:/instructors/all";
+//        }
         for (Integer id : instructorsIds) {
             instructorDAO.delete(id);
         }

@@ -1,4 +1,4 @@
-package web.sportclubs;
+package web.sportclubs.add;
 
 import javax.validation.constraints.Size;
 

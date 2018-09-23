@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<jsp:useBean id="formAddBean" scope="request" type="web.sportclubs.SportClubsAddFormBean"/>
+<jsp:useBean id="formAddBean" scope="request" type="web.sportclubs.add.SportClubsAddFormBean"/>
 <html>
 <head>
     <title>Добавление спортивного клуба</title>

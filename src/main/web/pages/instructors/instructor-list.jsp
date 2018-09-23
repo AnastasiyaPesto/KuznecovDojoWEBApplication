@@ -20,6 +20,7 @@
                     <th>Имя</th>
                     <th>Возраст</th>
                     <th>Телефон</th>
+                    <th>Сертификат</th>
                 </tr>
                 <c:forEach items="${instructorListBean.instructors}" var="instructor">
                     <tr>
@@ -28,6 +29,7 @@
                         <td>${instructor.secondName}</td>
                         <td>${instructor.age}</td>
                         <td>${instructor.phone}</td>
+                        <td><a href="/instructors/certificate?id=${instructor.instructorId}"/>Перейти</td>
                     </tr>
                 </c:forEach>
             </table>
@@ -45,7 +47,7 @@
     <a href="/instructors/find/firstName">Найти иструктора</a>
 </p>
 <p>
-    <a href="/sportclubs/add">Добавить спортивный клуб</a>
+    <a href="/sportclubs/all">Посмотреть все спортивные клубы, где проходят тренировки</a>
 </p>
 
 </body>
