@@ -22,13 +22,14 @@ public class SportClubsDeleteController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/sportclubs/all")
-    public String deleteSportClubs(@RequestParam("selectedClubs") List<Integer> ids,
+    public String deleteSportClubs(@RequestParam(value = "selectedClubs",required = false) List<Integer> ids,
                                    ModelMap model) {
-        for (Integer id : ids){
-            sportClubDAO.delete(id);
+        if (ids != null) {
+            for (Integer id : ids) {
+                sportClubDAO.delete(id);
+            }
         }
-
-        model.put("sporClubsAllBean", new SportClubsListBean(sportClubDAO.getAll()));
+        model.put("sportClubsAllBean", new SportClubsListBean(sportClubDAO.getAll()));
         return "sportclubs/sportclubs-list";
     }
 }

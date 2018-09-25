@@ -1,4 +1,4 @@
-package web.sportclubs.add;
+package web.sportclubs;
 
 import dao.SportClubDAO;
 import domain.SportClub;
@@ -25,7 +25,7 @@ public class SportClubsShowAllController {
         List<SportClub> sportClubs = sportClubDAO.getAll();
 
         SportClubsListBean sportClubsListBean = new SportClubsListBean(sportClubs);
-        modelMap.put("sporClubsAllBean", sportClubsListBean);
+        modelMap.put("sportClubsAllBean", sportClubsListBean);
 
         return "sportclubs/sportclubs-list";
     }
