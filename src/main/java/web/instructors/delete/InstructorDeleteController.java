@@ -31,18 +31,13 @@ public class InstructorDeleteController {
     // }
 
     @RequestMapping(method = RequestMethod.POST, path = "instructors/all")
-    public String deleteInstructors(@RequestParam("selectedInstr") List<Integer> instructorsIds,
+    public String deleteInstructors(@RequestParam(value = "selectedInstr", required = false) List<Integer> instructorsIds,
                                     ModelMap model
                                     /*BindingResult binding*/) {
-//        if (instructorsIds.size() == 0) {
-//            binding.addError(new FieldError(
-//                    "",
-//                    "selectedInstr",
-//                    "Для удаления выберите хотя бы одного инструктора"));
-//            return "redirect:/instructors/all";
-//        }
-        for (Integer id : instructorsIds) {
-            instructorDAO.delete(id);
+        if (instructorsIds != null) {
+            for (Integer id : instructorsIds) {
+                instructorDAO.delete(id);
+            }
         }
         model.put("instructorListBean", new InstructorListBean(instructorDAO.getAll()));
         return "instructors/instructor-list";
