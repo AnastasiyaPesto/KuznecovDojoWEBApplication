@@ -6,7 +6,7 @@ import domain.Certificate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.MatrixVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -23,12 +23,12 @@ public class CertificatesAddController {
         this.instructorDAO = instructorDAO;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/instructors/certificate?InstructorId={id}")
-    public String certificateGetAll(@PathVariable("id") String id,
+    @RequestMapping(method = RequestMethod.GET, value = "/instructors/certificate{id}")
+    public String certificateGetAll(@MatrixVariable(value = "InstructorId", pathVar = "id") int id,
                                     ModelMap model) {
 //        String firstName = instructorDAO.findById(id);
         String firstName = "Пестовникова";
-        ArrayList<Certificate> allCertificate = instructorDAO.getAllCertificate(Integer.parseInt(id));
+        ArrayList<Certificate> allCertificate = instructorDAO.getAllCertificate(id);
 
         CertificateListBean bean = new CertificateListBean(allCertificate);
         bean.setFirstName(firstName);

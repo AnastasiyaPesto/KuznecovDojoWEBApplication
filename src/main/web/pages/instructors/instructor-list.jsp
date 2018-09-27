@@ -29,7 +29,7 @@
                         <td>${instructor.secondName}</td>
                         <td>${instructor.age}</td>
                         <td>${instructor.phone}</td>
-                        <td><a href="/instructors/certificate?InstructorId=${instructor.instructorId}"/>Перейти</td>
+                        <td><a href="/instructors/certificate;InstructorId=${instructor.instructorId}"/>Перейти</td>
                     </tr>
                 </c:forEach>
             </table>
