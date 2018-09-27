@@ -52,12 +52,12 @@ public class KuznecovDojoProdConfiguration implements WebMvcConfigurer  {
         registry.addResourceHandler("/styles/*.css").addResourceLocations("/styles/");
     }
 
-
-    @Override
-    public void configurePathMatch(PathMatchConfigurer configurer) {
-        UrlPathHelper urlPathHelper = new UrlPathHelper();
-        urlPathHelper.setRemoveSemicolonContent(false);
-        configurer.setUrlPathHelper(urlPathHelper);
-    }
+// для MatrixVariable (см. CertificatesAddController)
+//    @Override
+//    public void configurePathMatch(PathMatchConfigurer configurer) {
+//        UrlPathHelper urlPathHelper = new UrlPathHelper();
+//        urlPathHelper.setRemoveSemicolonContent(false);
+//        configurer.setUrlPathHelper(urlPathHelper);
+//    }
 
 }
